@@ -26,7 +26,7 @@ class AdvertismentView extends StatelessWidget {
           ),
           SizedBox(height: 20),
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 15),
+            padding: EdgeInsets.symmetric(horizontal: 30),
             child: Column(
               children: [
                 Text(
@@ -59,7 +59,9 @@ class AdvertismentView extends StatelessWidget {
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: context.read<WelcomeCubit>().btnActive &&
-                              context.read<WelcomeCubit>().validateView
+                              (context.read<WelcomeCubit>().state
+                                      as WelcomeValidate)
+                                  .validate
                           ? greenPacifico
                           : Colors.grey[100],
                       border: Border.all(
@@ -69,7 +71,9 @@ class AdvertismentView extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(1.0),
                       child: context.read<WelcomeCubit>().btnActive &&
-                              context.read<WelcomeCubit>().validateView
+                              (context.read<WelcomeCubit>().state
+                                      as WelcomeValidate)
+                                  .validate
                           ? Icon(
                               Icons.check,
                               size: 15.0,
@@ -97,7 +101,8 @@ class AdvertismentView extends StatelessWidget {
             text: 'Sí, Acepto',
             minimumSize: Size(MediaQuery.of(context).size.width * 0.60, 35),
             onPressed: context.read<WelcomeCubit>().btnActive &&
-                    context.read<WelcomeCubit>().validateView
+                    (context.read<WelcomeCubit>().state as WelcomeValidate)
+                        .validate
                 ? () => context.read<WelcomeCubit>().accepted()
                 : null,
           ),

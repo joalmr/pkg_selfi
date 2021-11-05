@@ -12,14 +12,7 @@ class StepView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<WelcomeCubit, WelcomeState>(
-      listener: (context, state) {
-        if (state is WelcomeGoTo) {
-          Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => TakePictureView()),
-          );
-        }
-      },
+    return BlocBuilder<WelcomeCubit, WelcomeState>(
       builder: (context, state) {
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -58,7 +51,7 @@ class StepView extends StatelessWidget {
                 child: Column(
                   children: [
                     Image.asset(
-                      'images/img-1.jpg',
+                      'images/img-1.png',
                       package: 'pkg_selfi',
                       height: 100,
                     ),
@@ -91,7 +84,7 @@ class StepView extends StatelessWidget {
                                     child: Column(
                                       children: [
                                         Image.asset(
-                                          'images/group-1.jpg',
+                                          'images/group-1.png',
                                           package: 'pkg_selfi',
                                         ),
                                         EasyRichText(
@@ -116,7 +109,7 @@ class StepView extends StatelessWidget {
                                     child: Column(
                                       children: [
                                         Image.asset(
-                                          'images/group-2.jpg',
+                                          'images/group-2.png',
                                           package: 'pkg_selfi',
                                         ),
                                         EasyRichText(
@@ -142,7 +135,7 @@ class StepView extends StatelessWidget {
                                     child: Column(
                                       children: [
                                         Image.asset(
-                                          'images/group-3.jpg',
+                                          'images/group-3.png',
                                           package: 'pkg_selfi',
                                         ),
                                         EasyRichText(
@@ -164,14 +157,13 @@ class StepView extends StatelessWidget {
                                   ),
                                   SizedBox(height: 20),
                                   ButtonSecondary(
-                                    text: 'Continuar',
-                                    onPressed: () {
-                                      Navigator.of(context_).pop();
-                                      context
-                                          .read<WelcomeCubit>()
-                                          .gotoPicture();
-                                    },
-                                  ),
+                                      text: 'Continuar',
+                                      onPressed: () =>
+                                          Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    TakePictureView()),
+                                          )),
                                 ],
                               ),
                             ),

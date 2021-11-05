@@ -4,7 +4,8 @@ import 'package:flutter_simple_dependency_injection/injector.dart';
 import 'package:pkg_selfi/src/domains/cubit/welcome_cubit.dart';
 import 'package:pkg_selfi/src/domains/views/take-picture/take-picture.dart';
 import 'package:pkg_selfi/src/libs/dependency-injection/module-container.dart';
-import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:pkg_selfi/src/theme/colors.dart';
+import 'package:pkg_selfi/src/widgets/button-primary/button-primary.dart';
 
 import 'widgets/advertisment/advertisment.dart';
 import 'widgets/step/step.dart';
@@ -19,54 +20,72 @@ class WelcomeView extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: BlocConsumer<WelcomeCubit, WelcomeState>(
-          bloc: BlocProvider.of<WelcomeCubit>(context),
+          // bloc: BlocProvider.of<WelcomeCubit>(context),
           listener: (context, state) {
             if (state is WelcomeGoTo) {
               Navigator.of(context).push(
                 MaterialPageRoute(builder: (context) => TakePictureView()),
               );
-            } else if (state is WelcomeValidate &&
-                context.read<WelcomeCubit>().validateView == false) {
-              // final snackBar = SnackBar(
-              //   content: Text('SnackBar!'),
-              //   backgroundColor: Colors.red[200],
-              //   action: SnackBarAction(
-              //     textColor: Colors.white,
-              //     label: 'Salir',
-              //     onPressed: () {
-              //       Navigator.of(context).pop();
-              //     },
-              //   ),
-              // );
-
-              final snackBar = SnackBar(
-                backgroundColor: Colors.transparent,
-                content: CustomSnackBar.error(
-                  icon: const Icon(
-                    Icons.sentiment_neutral,
-                    color: const Color(0x15000000),
-                    size: 120,
-                  ),
-                  message: 'Este es un snackbar de error',
-                ),
-              );
-
-              ScaffoldMessenger.of(context).showSnackBar(snackBar);
             }
+            // else if ((context.read<WelcomeCubit>().state as WelcomeValidate)
+            //         .validate ==
+            //     false) {
+            // }
           },
           builder: (context, state) {
             switch (state.runtimeType) {
               case WelcomeValidate:
-                return AdvertismentView();
+                {
+                  if ((state as WelcomeValidate).validate) {
+                    return AdvertismentView();
+                  } else {
+                    return Container(
+                      margin: EdgeInsets.all(25),
+                      child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              'images/error.png',
+                              package: 'pkg_selfi',
+                            ),
+                            Text(
+                              'Ocurrió un error inesperado',
+                              style: TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                                color: bluePacifico,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 5,
+                                vertical: 5,
+                              ),
+                              child: Text(
+                                'No se puede continuar con la operación, verifique los datos o token de acceso.',
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                            SizedBox(height: 30),
+                            ButtonPrimary(
+                              text: 'Vuelva a intentarlo',
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  }
+                }
               case WelcomeAccepted:
                 return StepView();
               case WelcomeInitial:
               default:
-                return Scaffold(
-                  body: Container(
-                    color: Colors.red,
-                  ),
-                );
+                return Scaffold();
             }
           },
         ),

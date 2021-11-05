@@ -7,8 +7,9 @@ class WelcomeInitial extends WelcomeState {}
 
 class WelcomeValidate extends WelcomeState {
   final bool btnActive;
+  final bool validate;
 
-  WelcomeValidate({this.btnActive = false});
+  WelcomeValidate({this.validate = true, this.btnActive = false});
 }
 
 // class WelcomeInvalid extends WelcomeState {}

@@ -25,9 +25,7 @@ class _MainViewState extends State<MainView> {
         BlocProvider(create: (context) => TakePictureCubit()),
         BlocProvider(create: (context) => SuccessCubit()),
       ],
-      child: Scaffold(
-        body: WelcomeView(token: widget.token),
-      ),
+      child: WelcomeView(token: widget.token),
     );
   }
 }

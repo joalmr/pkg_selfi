@@ -29,10 +29,7 @@ flutter:
 
 # To add assets to your package, add an assets section, like this:
   assets:
-    - images/img-1.jpg
-    - images/group-1.jpg
-    - images/group-2.jpg
-    - images/group-3.jpg
+    - images/
 # assets:
 #   - images/a_dot_burr.jpeg
 #   - images/a_dot_ham.jpeg
