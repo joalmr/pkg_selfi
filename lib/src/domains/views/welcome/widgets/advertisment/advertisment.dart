@@ -58,7 +58,8 @@ class AdvertismentView extends StatelessWidget {
                     margin: EdgeInsets.only(right: 10),
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: context.read<WelcomeCubit>().btnActive
+                      color: context.read<WelcomeCubit>().btnActive &&
+                              context.read<WelcomeCubit>().validateView
                           ? greenPacifico
                           : Colors.grey[100],
                       border: Border.all(
@@ -67,7 +68,8 @@ class AdvertismentView extends StatelessWidget {
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(1.0),
-                      child: context.read<WelcomeCubit>().btnActive
+                      child: context.read<WelcomeCubit>().btnActive &&
+                              context.read<WelcomeCubit>().validateView
                           ? Icon(
                               Icons.check,
                               size: 15.0,
@@ -94,7 +96,8 @@ class AdvertismentView extends StatelessWidget {
           ButtonPrimary(
             text: 'Sí, Acepto',
             minimumSize: Size(MediaQuery.of(context).size.width * 0.60, 35),
-            onPressed: context.read<WelcomeCubit>().btnActive
+            onPressed: context.read<WelcomeCubit>().btnActive &&
+                    context.read<WelcomeCubit>().validateView
                 ? () => context.read<WelcomeCubit>().accepted()
                 : null,
           ),

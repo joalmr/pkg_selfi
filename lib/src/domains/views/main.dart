@@ -20,6 +20,7 @@ class _MainViewState extends State<MainView> {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
+            lazy: true,
             create: (context) => WelcomeCubit()..validateInit(widget.token)),
         BlocProvider(create: (context) => TakePictureCubit()),
         BlocProvider(create: (context) => SuccessCubit()),

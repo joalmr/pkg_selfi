@@ -7,15 +7,16 @@ class WelcomeCubit extends Cubit<WelcomeState> {
   WelcomeCubit() : super(WelcomeInitial());
 
   bool btnActive = false;
+  bool validateView = false;
 
   void validateInit(String token) {
     print(token);
     if (token == "tokenBlabla") {
-      emit(WelcomeValidate(validate: true));
+      validateView = true;
     } else {
-      emit(WelcomeValidate(validate: false));
       print(state);
     }
+    emit(WelcomeValidate());
   }
 
   void btnPulse(bool active) {

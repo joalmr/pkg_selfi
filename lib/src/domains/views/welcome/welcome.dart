@@ -4,6 +4,7 @@ import 'package:flutter_simple_dependency_injection/injector.dart';
 import 'package:pkg_selfi/src/domains/cubit/welcome_cubit.dart';
 import 'package:pkg_selfi/src/domains/views/take-picture/take-picture.dart';
 import 'package:pkg_selfi/src/libs/dependency-injection/module-container.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 
 import 'widgets/advertisment/advertisment.dart';
 import 'widgets/step/step.dart';
@@ -18,14 +19,38 @@ class WelcomeView extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: BlocConsumer<WelcomeCubit, WelcomeState>(
+          bloc: BlocProvider.of<WelcomeCubit>(context),
           listener: (context, state) {
             if (state is WelcomeGoTo) {
               Navigator.of(context).push(
                 MaterialPageRoute(builder: (context) => TakePictureView()),
               );
-            } else if (state is WelcomeValidate && state.validate == false) {
-              print('print WelcomeInvalid');
-              final snackBar = SnackBar(content: Text('SnackBar!'));
+            } else if (state is WelcomeValidate &&
+                context.read<WelcomeCubit>().validateView == false) {
+              // final snackBar = SnackBar(
+              //   content: Text('SnackBar!'),
+              //   backgroundColor: Colors.red[200],
+              //   action: SnackBarAction(
+              //     textColor: Colors.white,
+              //     label: 'Salir',
+              //     onPressed: () {
+              //       Navigator.of(context).pop();
+              //     },
+              //   ),
+              // );
+
+              final snackBar = SnackBar(
+                backgroundColor: Colors.transparent,
+                content: CustomSnackBar.error(
+                  icon: const Icon(
+                    Icons.sentiment_neutral,
+                    color: const Color(0x15000000),
+                    size: 120,
+                  ),
+                  message: 'Este es un snackbar de error',
+                ),
+              );
+
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
             }
           },
@@ -35,26 +60,13 @@ class WelcomeView extends StatelessWidget {
                 return AdvertismentView();
               case WelcomeAccepted:
                 return StepView();
-              // case WelcomeInvalid:
-              //   return Scaffold(
-              //     body: Center(
-              //       child: Column(
-              //         mainAxisAlignment: MainAxisAlignment.center,
-              //         children: [
-              //           Text('Token inválido'),
-              //           ButtonPrimary(
-              //             text: 'Salir',
-              //             onPressed: () {
-              //               Navigator.of(context).pop();
-              //             },
-              //           ),
-              //         ],
-              //       ),
-              //     ),
-              //   );
               case WelcomeInitial:
               default:
-                return Scaffold();
+                return Scaffold(
+                  body: Container(
+                    color: Colors.red,
+                  ),
+                );
             }
           },
         ),
