@@ -67,17 +67,16 @@ class AdvertismentView extends StatelessWidget {
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(1.0),
-                      child:
-                          context.read<WelcomeCubit>().state is WelcomeBtnPulse
-                              ? Icon(
-                                  Icons.check,
-                                  size: 15.0,
-                                  color: Colors.white,
-                                )
-                              : Icon(
-                                  null,
-                                  size: 15.0,
-                                ),
+                      child: context.read<WelcomeCubit>().btnActive
+                          ? Icon(
+                              Icons.check,
+                              size: 15.0,
+                              color: Colors.white,
+                            )
+                          : Icon(
+                              null,
+                              size: 15.0,
+                            ),
                     ),
                   ),
                   Text(
@@ -95,7 +94,7 @@ class AdvertismentView extends StatelessWidget {
           ButtonPrimary(
             text: 'Sí, Acepto',
             minimumSize: Size(MediaQuery.of(context).size.width * 0.60, 35),
-            onPressed: context.read<WelcomeCubit>().state is WelcomeBtnPulse
+            onPressed: context.read<WelcomeCubit>().btnActive
                 ? () => context.read<WelcomeCubit>().accepted()
                 : null,
           ),

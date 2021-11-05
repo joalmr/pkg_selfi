@@ -36,6 +36,10 @@ dependencies:
   cupertino_icons: ^1.0.2
   pkg_selfi:
     path: ../
+  # package_ejemplo:
+  #   git:
+  #     url: https://github.com/joalmr/package_ex
+  #     ref: master
 
 dev_dependencies:
   flutter_test:

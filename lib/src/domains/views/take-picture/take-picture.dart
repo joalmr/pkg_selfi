@@ -58,13 +58,6 @@ class TakePictureView extends StatelessWidget {
                           fallbackHeight: 160,
                           fallbackWidth: 160,
                         ),
-                        // Image(
-                        //   image: FileImage(
-                        //       context.read<TakePictureCubit>().image!),
-                        //   fit: BoxFit.cover,
-                        //   height: 160,
-                        //   width: 160,
-                        // ),
                       ),
                     SizedBox(height: 10),
                     ButtonPrimary(

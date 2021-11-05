@@ -1,3 +1,3 @@
 library pkg_selfi;
 
-export 'src/domains/views/welcome/welcome.dart';
+export 'src/domains/views/main.dart';

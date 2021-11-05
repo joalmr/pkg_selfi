@@ -16,44 +16,47 @@ class WelcomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(token),
-      ),
       body: SafeArea(
-        child: BlocProvider(
-          create: (context) => WelcomeCubit(),
-          child: BlocConsumer<WelcomeCubit, WelcomeState>(
-            listener: (context, state) {
-              // if (state is WelcomeInvalidInitial) {
-              //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              //     content: Text("Error token inválido"),
-              //   ));
-              // }
-              if (state is WelcomeGoTo) {
-                Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => TakePictureView()),
-                );
-              }
-            },
-            builder: (context, state) {
-              switch (state.runtimeType) {
-                // case WelcomeValidateInitial:
-                //   return AdvertismentView();
-                case WelcomeBtnPulse:
-                  return AdvertismentView();
-                case WelcomeAccepted:
-                  return StepView();
-                case WelcomeInitial:
-                  return AdvertismentView();
-                default:
-                  return Scaffold(
-                    body: Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                  );
-              }
-            },
-          ),
+        child: BlocConsumer<WelcomeCubit, WelcomeState>(
+          listener: (context, state) {
+            if (state is WelcomeGoTo) {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => TakePictureView()),
+              );
+            } else if (state is WelcomeValidate && state.validate == false) {
+              print('print WelcomeInvalid');
+              final snackBar = SnackBar(content: Text('SnackBar!'));
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            }
+          },
+          builder: (context, state) {
+            switch (state.runtimeType) {
+              case WelcomeValidate:
+                return AdvertismentView();
+              case WelcomeAccepted:
+                return StepView();
+              // case WelcomeInvalid:
+              //   return Scaffold(
+              //     body: Center(
+              //       child: Column(
+              //         mainAxisAlignment: MainAxisAlignment.center,
+              //         children: [
+              //           Text('Token inválido'),
+              //           ButtonPrimary(
+              //             text: 'Salir',
+              //             onPressed: () {
+              //               Navigator.of(context).pop();
+              //             },
+              //           ),
+              //         ],
+              //       ),
+              //     ),
+              //   );
+              case WelcomeInitial:
+              default:
+                return Scaffold();
+            }
+          },
         ),
       ),
     );

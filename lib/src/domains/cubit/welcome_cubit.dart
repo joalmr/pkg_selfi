@@ -9,17 +9,18 @@ class WelcomeCubit extends Cubit<WelcomeState> {
   bool btnActive = false;
 
   void validateInit(String token) {
-    if (token == "tokenBlabla2") {
-      emit(WelcomeValidateInitial());
+    print(token);
+    if (token == "tokenBlabla") {
+      emit(WelcomeValidate(validate: true));
     } else {
-      print('error');
-      emit(WelcomeInvalidInitial());
+      emit(WelcomeValidate(validate: false));
+      print(state);
     }
   }
 
   void btnPulse(bool active) {
     btnActive = active;
-    emit(WelcomeBtnPulse(active));
+    emit(WelcomeValidate(btnActive: active));
   }
 
   void accepted() {
@@ -27,7 +28,6 @@ class WelcomeCubit extends Cubit<WelcomeState> {
   }
 
   void gotoPicture() {
-    print("go to 1");
     emit(WelcomeGoTo());
   }
 }

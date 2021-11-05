@@ -57,9 +57,10 @@ class StepView extends StatelessWidget {
                 width: MediaQuery.of(context).size.width * 0.35,
                 child: Column(
                   children: [
-                    Image(
-                      // height: 100,
-                      image: AssetImage('images/img-1.jpg'),
+                    Image.asset(
+                      'images/img-1.jpg',
+                      package: 'pkg_selfi',
+                      height: 100,
                     ),
                     SizedBox(height: 10),
                     Text(
@@ -89,9 +90,9 @@ class StepView extends StatelessWidget {
                                     width: 140,
                                     child: Column(
                                       children: [
-                                        Image(
-                                          image:
-                                              AssetImage('images/group-1.jpg'),
+                                        Image.asset(
+                                          'images/group-1.jpg',
+                                          package: 'pkg_selfi',
                                         ),
                                         EasyRichText(
                                           'El lugar debe tener buena iluminación.',
@@ -114,9 +115,9 @@ class StepView extends StatelessWidget {
                                     width: 140,
                                     child: Column(
                                       children: [
-                                        Image(
-                                          image:
-                                              AssetImage('images/group-2.jpg'),
+                                        Image.asset(
+                                          'images/group-2.jpg',
+                                          package: 'pkg_selfi',
                                         ),
                                         EasyRichText(
                                           'Rostro descubierto, sin gafas ni prendas en la cabeza.',
@@ -140,9 +141,9 @@ class StepView extends StatelessWidget {
                                     width: 140,
                                     child: Column(
                                       children: [
-                                        Image(
-                                          image:
-                                              AssetImage('images/group-3.jpg'),
+                                        Image.asset(
+                                          'images/group-3.jpg',
+                                          package: 'pkg_selfi',
                                         ),
                                         EasyRichText(
                                           'Mira de frente a la cámara sin inclinar la cabeza.',
@@ -197,7 +198,7 @@ class StepView extends StatelessWidget {
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   EasyRichTextPattern(
-                    targetString: '(01)',
+                    targetString: '01',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   EasyRichTextPattern(

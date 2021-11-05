@@ -5,15 +5,14 @@ abstract class WelcomeState {}
 
 class WelcomeInitial extends WelcomeState {}
 
-class WelcomeValidateInitial extends WelcomeState {}
-
-class WelcomeInvalidInitial extends WelcomeState {}
-
-class WelcomeBtnPulse extends WelcomeState {
+class WelcomeValidate extends WelcomeState {
   final bool btnActive;
+  final bool validate;
 
-  WelcomeBtnPulse(this.btnActive);
+  WelcomeValidate({this.validate = false, this.btnActive = false});
 }
+
+// class WelcomeInvalid extends WelcomeState {}
 
 class WelcomeAccepted extends WelcomeState {}
 
