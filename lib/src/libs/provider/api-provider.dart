@@ -10,7 +10,7 @@ class ApiProvider {
     return response;
   }
 
-  post(String urlBase, String ruta,
+  Future<http.Response> post(String urlBase, String ruta,
       {Map<String, String>? headers, Object? body}) async {
     final url = Uri.https(urlBase, ruta);
     final response =
@@ -18,7 +18,7 @@ class ApiProvider {
     return response;
   }
 
-  put(String urlBase, String ruta,
+  Future<http.Response> put(String urlBase, String ruta,
       {Map<String, String>? headers, Object? body}) async {
     final url = Uri.https(urlBase, ruta);
     final response =
@@ -26,7 +26,7 @@ class ApiProvider {
     return response;
   }
 
-  delete(String urlBase, String ruta,
+  Future<http.Response> delete(String urlBase, String ruta,
       {Map<String, String>? headers, Object? body}) async {
     final url = Uri.https(urlBase, ruta);
     final response =

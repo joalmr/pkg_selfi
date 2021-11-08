@@ -64,7 +64,7 @@ class WelcomeView extends StatelessWidget {
                                 vertical: 5,
                               ),
                               child: Text(
-                                'No se puede continuar con la operación, verifique los datos o token de acceso.',
+                                'No se puede continuar con la operación, verifique los datos.',
                                 textAlign: TextAlign.center,
                               ),
                             ),

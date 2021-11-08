@@ -1,20 +1,25 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:pkg_selfi/src/domains/providers/selfi-provider-service.dart';
 
 part 'welcome_state.dart';
 
 class WelcomeCubit extends Cubit<WelcomeState> {
   WelcomeCubit() : super(WelcomeInitial());
 
+  SelfiProviderService service = SelfiProviderService();
+
   bool btnActive = false;
 
-  void validateInit(String token) {
+  Future<void> validateInit(String token) async {
     print(token);
-    if (token == "tokenBlabla") {
+    final response = await service.getSessionToken(token);
+
+    print(response.statusCode);
+    if (response.statusCode == 200) {
       emit(WelcomeValidate());
     } else {
       emit(WelcomeValidate(validate: false));
-      print(state);
     }
   }
 
