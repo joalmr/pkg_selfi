@@ -6,6 +6,7 @@ import 'package:pkg_selfi/src/domains/views/take-picture/take-picture.dart';
 import 'package:pkg_selfi/src/libs/dependency-injection/module-container.dart';
 import 'package:pkg_selfi/src/theme/colors.dart';
 import 'package:pkg_selfi/src/widgets/button-primary/button-primary.dart';
+import 'package:pkg_selfi/src/widgets/error/error-msg.dart';
 
 import 'widgets/advertisment/advertisment.dart';
 import 'widgets/step/step.dart';
@@ -39,45 +40,11 @@ class WelcomeView extends StatelessWidget {
                   if ((state as WelcomeValidate).validate) {
                     return AdvertismentView();
                   } else {
-                    return Container(
-                      margin: EdgeInsets.all(25),
-                      child: Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset(
-                              'images/error.png',
-                              package: 'pkg_selfi',
-                            ),
-                            Text(
-                              'Ocurrió un error inesperado',
-                              style: TextStyle(
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
-                                color: bluePacifico,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 5,
-                                vertical: 5,
-                              ),
-                              child: Text(
-                                'No se puede continuar con la operación, verifique los datos.',
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                            SizedBox(height: 30),
-                            ButtonPrimary(
-                              text: 'Vuelva a intentarlo',
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
+                    return ErrorMsg(
+                      title: 'Ocurrió un error inesperado',
+                      bodyText:
+                          'No se puede continuar con la operación, verifique los datos.',
+                      onPressed: () => Navigator.of(context).pop(),
                     );
                   }
                 }

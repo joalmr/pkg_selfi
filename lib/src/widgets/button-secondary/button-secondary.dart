@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pkg_selfi/src/theme/colors.dart';
 
 class ButtonSecondary extends StatelessWidget {
-  final Function()? onPressed;
+  final void Function()? onPressed;
   final String text;
   final Size? minimumSize;
 

@@ -12,10 +12,10 @@ class WelcomeCubit extends Cubit<WelcomeState> {
   bool btnActive = false;
 
   Future<void> validateInit(String token) async {
-    print(token);
     final response = await service.getSessionToken(token);
-
+    print('validate token');
     print(response.statusCode);
+
     if (response.statusCode == 200) {
       emit(WelcomeValidate());
     } else {

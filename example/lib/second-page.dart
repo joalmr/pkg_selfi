@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:pkg_selfi/pkg_selfi.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class SecondPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final accessToken =
-        "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0NDAzNTM4Yy1hZjhmLTRmNTEtOGU3MC1lMTlhMDQxYmRlZGMiLCJpc3MiOiJodHRwczovL3N0cy5kZXMuaWQucGFjaWZpY28uY29tLnBlL3YxIiwiaWF0IjoxNjM2Mzk2NjY3LCJuYmYiOjE2MzYzOTY2NjcsImV4cCI6MTYzNjM5Njk2NywiaWRDYW5hbCI6IjEiLCJ0eXBlIjoiYWNjZXNzIiwiZG9jdW1lbnROdW1iZXIiOiI0Njc5MDkwNiIsImRvY3VtZW50VHlwZSI6IjAxIiwiYWNjZXNzSWQiOiJlNDg2OTIzNi02ZTQyLTQ2ZTAtOWRkOS03YmJkY2M4YTcwZjIifQ.UyFHpK9QGcCj4bO3A6EPAny5cVlPzr5jobbQBGZu-ZvpBfK-q_diUdh8mN7BxvHanAHaAn9bqlL9x5EoOsI5BT01A81E3IL6O2OsZn1suPCa8Udf8lOtItmbnyNQ2iIHxWqYooSoyAdblXx92BDXXWHQlIB-xsiqF1xfsjYCjpvdCfoBtXGAHjYUZLzRmT5k0mF9Xw63905ga3BOgv1YuKdx3IYQatzRpa_wcqymAYRbJ7-SFkE8TMy7-k0X7ENU5RJik00yS-0cRoJOGEoVVNs8LQqx9hv2Vts49jY-RGz-59XpU_3lL0iNR2eFYqEghESwdsCUDlv8YP8IWY5cEA";
-    return MainView(token: accessToken);
+    final accessToken = dotenv.env['TOKEN'];
+    return MainPkgView(token: accessToken!);
   }
 }

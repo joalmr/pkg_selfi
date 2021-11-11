@@ -61,11 +61,9 @@ class TakePictureView extends StatelessWidget {
                       ),
                     SizedBox(height: 10),
                     ButtonPrimary(
-                      onPressed: (state is TakePictureInitial ||
-                              state is TakePictureFail)
-                          ? null
-                          : () =>
-                              context.read<TakePictureCubit>().gotoSuccess(),
+                      onPressed:
+                          // (state is TakePictureInitial || state is TakePictureFail) ? null :
+                          () => context.read<TakePictureCubit>().gotoSuccess(),
                       text: 'Continuar',
                       minimumSize:
                           Size(MediaQuery.of(context).size.width * 0.60, 35),
