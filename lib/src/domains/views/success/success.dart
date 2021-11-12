@@ -42,7 +42,7 @@ class SuccesView extends StatelessWidget {
               ButtonPrimary(
                 text: 'Continuar',
                 minimumSize: Size(MediaQuery.of(context).size.width * 0.45, 35),
-                onPressed: () => print('salir'),
+                onPressed: () => print('salir'), //for git
               ),
             ],
           ),
