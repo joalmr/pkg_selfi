@@ -4,8 +4,6 @@ import 'package:flutter_simple_dependency_injection/injector.dart';
 import 'package:pkg_selfi/src/domains/cubit/welcome_cubit.dart';
 import 'package:pkg_selfi/src/domains/views/take-picture/take-picture.dart';
 import 'package:pkg_selfi/src/libs/dependency-injection/module-container.dart';
-import 'package:pkg_selfi/src/theme/colors.dart';
-import 'package:pkg_selfi/src/widgets/button-primary/button-primary.dart';
 import 'package:pkg_selfi/src/widgets/error/error-msg.dart';
 
 import 'widgets/advertisment/advertisment.dart';
