@@ -3,15 +3,20 @@ description: A new Flutter package project.
 version: 0.0.1
 homepage: https://github.com/joalmr/pkg_selfi
 
+publish_to: 'none'
+
 environment:
   sdk: ">=2.12.0 <3.0.0"
   flutter: ">=1.17.0"
 
 dependencies:
-  cached_network_image: ^3.1.0
-  easy_rich_text: ^1.0.0
+  
   flutter:
     sdk: flutter
+  selphi_face_plugin:
+    path: plugin/selphi_face_plugin/
+  cached_network_image: ^3.1.0
+  easy_rich_text: ^1.0.0
   flutter_bloc: ^7.3.1
   flutter_simple_dependency_injection: ^2.0.0
   http: ^0.13.4
