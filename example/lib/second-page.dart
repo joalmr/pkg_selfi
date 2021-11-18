@@ -6,6 +6,8 @@ class SecondPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final accessToken = dotenv.env['TOKEN'];
-    return MainPkgView(token: accessToken!);
+    return MainPkgView(
+      token: accessToken!,
+    );
   }
 }

@@ -19,7 +19,10 @@ class WelcomeCubit extends Cubit<WelcomeState> {
     if (response.statusCode == 200) {
       emit(WelcomeValidate());
     } else {
-      emit(WelcomeValidate(validate: false));
+      emit(WelcomeValidate(
+        validate: false,
+        code: response.statusCode,
+      ));
     }
   }
 

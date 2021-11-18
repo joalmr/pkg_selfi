@@ -4,6 +4,7 @@ import 'package:flutter_simple_dependency_injection/injector.dart';
 import 'package:pkg_selfi/src/domains/cubit/welcome_cubit.dart';
 import 'package:pkg_selfi/src/domains/views/take-picture/take-picture.dart';
 import 'package:pkg_selfi/src/libs/dependency-injection/module-container.dart';
+import 'package:pkg_selfi/src/widgets/error/error-case.dart';
 import 'package:pkg_selfi/src/widgets/error/error-msg.dart';
 
 import 'widgets/advertisment/advertisment.dart';
@@ -38,11 +39,9 @@ class WelcomeView extends StatelessWidget {
                   if ((state as WelcomeValidate).validate) {
                     return AdvertismentView();
                   } else {
-                    return ErrorMsg(
-                      title: 'Ocurrió un error inesperado',
-                      bodyText:
-                          'No se puede continuar con la operación, verifique los datos.',
-                      onPressed: () => Navigator.of(context).pop(),
+                    return ErrorCase(
+                      errorCode: state.code,
+                      onPressed: () {},
                     );
                   }
                 }
