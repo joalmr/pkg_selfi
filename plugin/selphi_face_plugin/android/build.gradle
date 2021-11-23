@@ -43,9 +43,18 @@ android {
 }
 
 
+// dependencies {
+//     implementation files('src/main/libs/fphi-core-widget-android.aar')
+//     implementation files('src/main/libs/fphi-selphi-widget-android.aar')
+//     implementation 'com.google.android.material:material:1.0.0'
+//     implementation 'androidx.appcompat:appcompat:1.0.0'
+//     implementation 'androidx.percentlayout:percentlayout:1.0.0'
+// }
 dependencies {
-    implementation files('src/main/libs/fphi-core-widget-android.aar')
-    implementation files('src/main/libs/fphi-selphi-widget-android.aar')
+    //implementation files('src/main/libs/fphi-core-widget-android.aar')
+    //implementation files('src/main/libs/fphi-selphi-widget-android.aar')
+    implementation project(path: ':fphi-selphi-widget-android')
+    implementation project(path: ':fphi-core-widget-android')
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'androidx.appcompat:appcompat:1.0.0'
     implementation 'androidx.percentlayout:percentlayout:1.0.0'

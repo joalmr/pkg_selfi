@@ -44,23 +44,23 @@ class TakePictureView extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 10),
-                    // SelphiImage(context.read<TakePictureCubit>().bestImage),
-                    if (state is TakePictureInitial || state is TakePictureFail)
-                      InkWell(
-                        onTap: () {},
-                        child: CircleAvatar(
-                          backgroundColor: Colors.grey[400],
-                          radius: 80,
-                        ),
-                      ),
-                    if (state is TakePictureWithImage)
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(100),
-                        child: Placeholder(
-                          fallbackHeight: 160,
-                          fallbackWidth: 160,
-                        ),
-                      ),
+                    SelphiImage(context.read<TakePictureCubit>().bestImage),
+                    // if (state is TakePictureInitial || state is TakePictureFail)
+                    //   InkWell(
+                    //     onTap: () {},
+                    //     child: CircleAvatar(
+                    //       backgroundColor: Colors.grey[400],
+                    //       radius: 80,
+                    //     ),
+                    //   ),
+                    // if (state is TakePictureWithImage)
+                    //   ClipRRect(
+                    //     borderRadius: BorderRadius.circular(100),
+                    //     child: Placeholder(
+                    //       fallbackHeight: 160,
+                    //       fallbackWidth: 160,
+                    //     ),
+                    //   ),
                     SizedBox(height: 10),
                     ButtonPrimary(
                       onPressed:
