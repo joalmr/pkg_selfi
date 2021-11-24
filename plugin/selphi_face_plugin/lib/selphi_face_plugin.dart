@@ -13,14 +13,22 @@ class SelphiFacePlugin {
     @required String resourcesPath,
     SelphiFaceConfiguration widgetConfigurationJSON,
   }) async {
-    final Map result = await _channel.invokeMethod('startSelphiFaceWidget', {"resourcesPath": resourcesPath, "widgetConfigurationJSON": widgetConfigurationJSON.toJson()});
+    final Map result = await _channel.invokeMethod(
+      'startSelphiFaceWidget',
+      {
+        "resourcesPath": resourcesPath,
+        "widgetConfigurationJSON": widgetConfigurationJSON.toJson()
+      },
+    );
     return result;
   }
 
-  static Future<String> generateTemplateRaw({
-    @required String imageBase64
-  }) async {
-    final String result = await _channel.invokeMethod('generateTemplateRaw', {"imageBase64": imageBase64});
+  static Future<String> generateTemplateRaw(
+      {@required String imageBase64}) async {
+    final String result = await _channel.invokeMethod(
+      'generateTemplateRaw',
+      {"imageBase64": imageBase64},
+    );
     return result;
   }
 }

@@ -16,6 +16,7 @@ dependencies:
   selphi_face_plugin:
     path: plugin/selphi_face_plugin/
   cached_network_image: ^3.1.0
+  dartz: ^0.10.0
   easy_rich_text: ^1.0.0
   flutter_bloc: ^7.3.1
   flutter_simple_dependency_injection: ^2.0.0
