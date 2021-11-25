@@ -9,37 +9,25 @@ class SelphiImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Row(children: <Widget>[
-        Spacer(flex: 1),
-        if (_bestImage != null)
-          Expanded(
-            flex: 8,
-            child: SizedBox(
-              height: MediaQuery.of(context).size.height * 0.4,
-              child: Container(
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                      fit: BoxFit.cover, image: MemoryImage(_bestImage!)),
-                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                  color: Colors.blueGrey[100],
-                ),
+      child: Column(
+        children: <Widget>[
+          if (_bestImage != null)
+            CircleAvatar(
+              backgroundImage: MemoryImage(_bestImage!),
+              radius: 125,
+            )
+          else
+            CircleAvatar(
+              backgroundColor: Colors.blueGrey[100],
+              radius: 125,
+              child: Icon(
+                Icons.photo_outlined,
+                color: Colors.white,
+                size: 64,
               ),
             ),
-          )
-        else
-          Expanded(
-            flex: 9,
-            child: SizedBox(
-                height: MediaQuery.of(context).size.height * 0.4,
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                    color: Colors.blueGrey[100],
-                  ),
-                )),
-          ),
-        Spacer(flex: 1)
-      ]),
+        ],
+      ),
     );
   }
 }

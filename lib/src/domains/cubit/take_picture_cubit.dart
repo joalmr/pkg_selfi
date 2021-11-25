@@ -27,6 +27,7 @@ class TakePictureCubit extends Cubit<TakePictureState> {
   void launchSelphiAuthenticate() async {
     final selphiFaceWidgetResult =
         await _selphiFaceWidget.launchSelphiAuthenticate(_resourcesPath);
+
     return selphiFaceWidgetResult.fold((l) {
       message = l.toString();
       bestImage = null;
@@ -40,6 +41,12 @@ class TakePictureCubit extends Cubit<TakePictureState> {
             message = 'Preview Selfie';
             bestImage = base64Decode(selphiFaceResult.bestImage!);
             textColorMessage = Color(0xFF0099af);
+
+            print('=====> respuesta selphi');
+            print(bestImage!.isEmpty);
+            print(bestImage);
+
+            emit(TakePictureWithImage(bestImage!));
           }
           break;
         case SelphiFaceFinishStatus.STATUS_ERROR: // Error
@@ -47,6 +54,7 @@ class TakePictureCubit extends Cubit<TakePictureState> {
             message = selphiFaceResult.errorMessage!;
             bestImage = null;
             textColorMessage = Colors.red[800]!;
+            emit(TakePictureFail(message));
           }
           break;
         case SelphiFaceFinishStatus.STATUS_CANCEL_BY_USER: // CancelByUser
@@ -54,6 +62,7 @@ class TakePictureCubit extends Cubit<TakePictureState> {
             message = 'The user cancelled the process';
             bestImage = null;
             textColorMessage = Colors.amber[800]!;
+            emit(TakePictureFail(message));
           }
           break;
         case SelphiFaceFinishStatus.STATUS_TIMEOUT: // Timeout
@@ -61,6 +70,7 @@ class TakePictureCubit extends Cubit<TakePictureState> {
             message = 'Process finished by timeout';
             bestImage = null;
             textColorMessage = Colors.amber[800]!;
+            emit(TakePictureFail(message));
           }
           break;
       }

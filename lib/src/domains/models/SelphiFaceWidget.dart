@@ -37,7 +37,7 @@ class SelphiFaceWidget {
         SelphiFaceLivenessMode.LM_PASSIVE; // Liveness mode
     configurationWidget.fullscreen = true;
     configurationWidget.enableImages = false;
-    configurationWidget.jpgQuality = 0.8;
+    configurationWidget.jpgQuality = 1.0;
     return configurationWidget;
   }
 }

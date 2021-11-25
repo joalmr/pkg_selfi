@@ -22,7 +22,9 @@ class _MainPkgViewState extends State<MainPkgView> {
         BlocProvider(
             lazy: true,
             create: (context) => WelcomeCubit()..validateInit(widget.token)),
-        BlocProvider(create: (context) => TakePictureCubit()),
+        // BlocProvider(
+        //   create: (context) => TakePictureCubit(),
+        // ),
         BlocProvider(create: (context) => SuccessCubit()),
       ],
       child: WelcomeView(token: widget.token),
