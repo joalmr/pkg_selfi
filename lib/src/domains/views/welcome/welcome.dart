@@ -17,7 +17,6 @@ class WelcomeView extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: BlocConsumer<WelcomeCubit, WelcomeState>(
-          // bloc: BlocProvider.of<WelcomeCubit>(context),
           listener: (context, state) {
             if (state is WelcomeGoTo) {
               Navigator.of(context).push(

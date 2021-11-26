@@ -27,3 +27,7 @@ crear carpeta "fphi-selphi-widget-android"
 
 # ejecutar
 flutter run --no-sound-null-safety
+
+flutter build apk --split-per-abi --no-sound-null-safety
+
+flutter build apk --release --no-sound-null-safety

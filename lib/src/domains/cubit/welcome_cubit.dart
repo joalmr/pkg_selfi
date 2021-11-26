@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:pkg_selfi/src/domains/providers/selfi-provider-service.dart';
@@ -11,12 +13,16 @@ class WelcomeCubit extends Cubit<WelcomeState> {
 
   bool btnActive = false;
 
+  String? sessionToken;
+  bool? isEnrolled;
+
   Future<void> validateInit(String token) async {
+    //get session token
     final response = await service.getSessionToken(token);
-    print('validate token');
-    print(response.statusCode);
 
     if (response.statusCode == 200) {
+      final sessionTemp = jsonDecode(response.body);
+      sessionToken = sessionTemp['token'];
       emit(WelcomeValidate());
     } else {
       emit(WelcomeValidate(
@@ -24,6 +30,16 @@ class WelcomeCubit extends Cubit<WelcomeState> {
         code: response.statusCode,
       ));
     }
+  }
+
+  getIsEnrolled() async {
+    final response = await service.getIsEnrolled(sessionToken!);
+    print('is enrolled');
+    final isEnrolledTemp = jsonDecode(response.body);
+    isEnrolled = isEnrolledTemp['isEnrolled'];
+
+    print('==========================> enrolled');
+    emit(WelcomeGoTo());
   }
 
   void btnPulse(bool active) {
@@ -35,7 +51,7 @@ class WelcomeCubit extends Cubit<WelcomeState> {
     emit(WelcomeAccepted());
   }
 
-  void gotoPicture() {
-    emit(WelcomeGoTo());
-  }
+  // void gotoPicture() {
+  //   emit(WelcomeGoTo());
+  // }
 }

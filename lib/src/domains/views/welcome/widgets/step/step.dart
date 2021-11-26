@@ -1,7 +1,6 @@
 import 'package:easy_rich_text/easy_rich_text.dart';
 import 'package:flutter/material.dart';
 import 'package:pkg_selfi/src/domains/cubit/welcome_cubit.dart';
-import 'package:pkg_selfi/src/domains/views/take-picture/take-picture.dart';
 import 'package:pkg_selfi/src/theme/colors.dart';
 import 'package:pkg_selfi/src/widgets/button-primary/button-primary.dart';
 import 'package:pkg_selfi/src/widgets/button-secondary/button-secondary.dart';
@@ -157,13 +156,16 @@ class StepView extends StatelessWidget {
                                   ),
                                   SizedBox(height: 20),
                                   ButtonSecondary(
-                                      text: 'Continuar',
-                                      onPressed: () =>
-                                          Navigator.of(context).push(
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    TakePictureView()),
-                                          )),
+                                    text: 'Continuar',
+                                    onPressed: () => context
+                                        .read<WelcomeCubit>()
+                                        .getIsEnrolled(),
+                                    // Navigator.of(context).push(
+                                    //   MaterialPageRoute(
+                                    //       builder: (context) =>
+                                    //           TakePictureView()),
+                                    // ),
+                                  ),
                                 ],
                               ),
                             ),
