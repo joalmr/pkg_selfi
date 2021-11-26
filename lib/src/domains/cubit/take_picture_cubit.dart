@@ -6,12 +6,15 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'package:pkg_selfi/src/domains/models/SelphiFaceWidget.dart';
+import 'package:pkg_selfi/src/domains/providers/selfi-provider-service.dart';
 import 'package:selphi_face_plugin/SelphiFaceFinishStatus.dart';
 
 part 'take_picture_state.dart';
 
 class TakePictureCubit extends Cubit<TakePictureState> {
   TakePictureCubit() : super(TakePictureInitial());
+
+  SelfiProviderService service = SelfiProviderService();
 
   void gotoSuccess() {
     emit(TakePictureGoTo());
@@ -23,6 +26,24 @@ class TakePictureCubit extends Cubit<TakePictureState> {
 
   String message = 'Preview selfie';
   Color textColorMessage = Color(0xFF0099af);
+
+  validaPersona(bool flagEnrollment, String sessionToken) async {
+    print('flagEnrollment ==> $flagEnrollment');
+    print('sessionToken ==> $sessionToken');
+    print('bestImage ==> $bestImage');
+
+    if (bestImage!.isNotEmpty) {
+      final response = await service.getInfoPerson(
+        flagEnrollment,
+        bestImage!.toString(),
+        sessionToken,
+      );
+
+      print('===================> valida Persona');
+      print(response.statusCode);
+      print(response.body);
+    }
+  }
 
   void launchSelphiAuthenticate() async {
     final selphiFaceWidgetResult =

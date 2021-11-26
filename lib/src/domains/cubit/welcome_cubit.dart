@@ -39,7 +39,10 @@ class WelcomeCubit extends Cubit<WelcomeState> {
     isEnrolled = isEnrolledTemp['isEnrolled'];
 
     print('==========================> enrolled');
-    emit(WelcomeGoTo());
+    emit(WelcomeGoTo(
+      isEnrolled: isEnrolled!,
+      sessionToken: sessionToken!,
+    ));
   }
 
   void btnPulse(bool active) {

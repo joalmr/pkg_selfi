@@ -20,7 +20,11 @@ class WelcomeView extends StatelessWidget {
           listener: (context, state) {
             if (state is WelcomeGoTo) {
               Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => TakePictureView()),
+                MaterialPageRoute(
+                    builder: (context) => TakePictureView(
+                          isEnrolled: state.isEnrolled,
+                          sessionToken: state.sessionToken,
+                        )),
               );
             }
           },

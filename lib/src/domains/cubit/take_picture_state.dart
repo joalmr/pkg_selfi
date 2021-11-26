@@ -17,4 +17,6 @@ class TakePictureFail extends TakePictureState {
   TakePictureFail(this.msg);
 }
 
+class TakePictureFailWrap extends TakePictureState {}
+
 class TakePictureGoTo extends TakePictureState {}

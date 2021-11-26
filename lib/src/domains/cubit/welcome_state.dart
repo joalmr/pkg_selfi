@@ -21,4 +21,12 @@ class WelcomeValidate extends WelcomeState {
 
 class WelcomeAccepted extends WelcomeState {}
 
-class WelcomeGoTo extends WelcomeState {}
+class WelcomeGoTo extends WelcomeState {
+  final bool isEnrolled;
+  final String sessionToken;
+
+  WelcomeGoTo({
+    this.isEnrolled = false,
+    this.sessionToken = '',
+  });
+}

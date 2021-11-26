@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pkg_selfi/src/domains/cubit/take_picture_cubit.dart';
+import 'package:pkg_selfi/src/domains/cubit/welcome_cubit.dart';
 import 'package:pkg_selfi/src/domains/views/success/success.dart';
 import 'package:pkg_selfi/src/theme/colors.dart';
 import 'package:pkg_selfi/src/widgets/button-primary/button-primary.dart';
@@ -8,7 +9,9 @@ import 'package:pkg_selfi/src/widgets/button-secondary/button-secondary.dart';
 import 'package:pkg_selfi/src/widgets/selphi/selphi-image.dart';
 
 class TakePictureView extends StatelessWidget {
-  const TakePictureView({Key? key}) : super(key: key);
+  final bool isEnrolled;
+  final String sessionToken;
+  const TakePictureView({required this.isEnrolled, required this.sessionToken});
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +55,9 @@ class TakePictureView extends StatelessWidget {
                             child: ButtonPrimary(
                               onPressed:
                                   // (state is TakePictureInitial || state is TakePictureFail) ? null :
-                                  () {},
+                                  () => context
+                                      .read<TakePictureCubit>()
+                                      .validaPersona(isEnrolled, sessionToken),
                               text: 'Continuar',
                               minimumSize: Size(
                                   MediaQuery.of(context).size.width * 0.60, 35),
