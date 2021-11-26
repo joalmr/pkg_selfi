@@ -8,6 +8,7 @@ class SecondPage extends StatelessWidget {
     final accessToken = dotenv.env['TOKEN'];
     return MainPkgView(
       token: accessToken!,
+      trackId: 'trackId',
     );
   }
 }

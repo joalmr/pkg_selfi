@@ -8,7 +8,8 @@ import 'welcome/welcome.dart';
 
 class MainPkgView extends StatefulWidget {
   final String token;
-  const MainPkgView({Key? key, required this.token}) : super(key: key);
+  final String trackId;
+  const MainPkgView({required this.token, required this.trackId});
 
   @override
   State<MainPkgView> createState() => _MainPkgViewState();
