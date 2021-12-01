@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pkg_selfi/src/domains/cubit/main_cubit.dart';
+import 'package:pkg_selfi/src/domains/cubit/navigation/navigation_cubit.dart';
+import 'package:pkg_selfi/src/widgets/error/error-msg.dart';
 
-import 'package:pkg_selfi/src/domains/cubit/success_cubit.dart';
-import 'package:pkg_selfi/src/domains/cubit/take_picture_cubit.dart';
-import 'package:pkg_selfi/src/domains/cubit/welcome_cubit.dart';
-
+import 'success/success.dart';
+import 'take-picture/take-picture.dart';
 import 'welcome/welcome.dart';
 
 class MainPkgView extends StatefulWidget {
   final String token;
   final String trackId;
-  final void Function() goOutTo;
+  final ValueChanged<bool?> onChanged;
   const MainPkgView({
     required this.token,
     required this.trackId,
-    required this.goOutTo,
+    required this.onChanged,
   });
 
   @override
@@ -22,18 +23,50 @@ class MainPkgView extends StatefulWidget {
 }
 
 class _MainPkgViewState extends State<MainPkgView> {
+  GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
   @override
   Widget build(BuildContext context) {
+    var navigatorCubit = NavigationCubit(navigatorKey);
+    var mainCubit = MainCubit(navigatorCubit);
+
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
-            create: (context) => WelcomeCubit()..validateInit(widget.token)),
-        BlocProvider(create: (context) => TakePictureCubit()),
-        BlocProvider(create: (context) => SuccessCubit()),
+        BlocProvider(create: (context) => navigatorCubit),
+        BlocProvider(create: (context) => mainCubit),
       ],
       child: MaterialApp(
-        title: '',
-        home: WelcomeView(token: widget.token),
+        navigatorKey: navigatorKey,
+        home: BlocConsumer<MainCubit, MainState>(
+          listener: (context, state) {
+            if (state is MainError) {
+              print('=====> error ${state.code}');
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                    builder: (context) => ErrorMsg(errorCode: state.code)),
+              );
+            }
+            if (state is MainTakePicture) {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => TakePictureView()),
+              );
+            }
+            if (state is MainSuccess) {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => SuccesView()),
+              );
+            }
+            if (state is MainFail) {
+              final snackBar = SnackBar(content: Text(state.msg));
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            }
+          },
+          builder: (context, state) {
+            return WelcomeView(
+              token: widget.token,
+            );
+          },
+        ),
       ),
     );
   }

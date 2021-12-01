@@ -1,12 +1,24 @@
 import 'package:bloc/bloc.dart';
+import 'package:dartz/dartz.dart';
 import 'package:meta/meta.dart';
+
+import 'navigation/navigation_cubit.dart';
 
 part 'main_state.dart';
 
 class MainCubit extends Cubit<MainState> {
-  MainCubit() : super(MainInitial());
+  final NavigationCubit navigationCubit;
+  MainCubit(this.navigationCubit) : super(MainInitial());
 
-  void goToTakePicture() => emit(MainTakePicture());
+  String? sessionToken;
+  bool? isEnrolled;
 
-  void goToSuccess() => emit(MainSuccess());
+  bool? dataReturn;
+
+  void navigationEvent() {}
+
+  void goError(int code) {
+    dataReturn = false;
+    emit(MainError(code));
+  }
 }

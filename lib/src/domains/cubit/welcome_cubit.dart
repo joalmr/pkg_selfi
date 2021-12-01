@@ -2,19 +2,19 @@ import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:pkg_selfi/src/domains/cubit/main_cubit.dart';
 import 'package:pkg_selfi/src/domains/providers/selfi-provider-service.dart';
+import 'package:pkg_selfi/src/domains/views/take-picture/take-picture.dart';
 
 part 'welcome_state.dart';
 
 class WelcomeCubit extends Cubit<WelcomeState> {
-  WelcomeCubit() : super(WelcomeInitial());
+  final MainCubit mainCubit;
+  WelcomeCubit(this.mainCubit) : super(WelcomeInitial());
 
   SelfiProviderService service = SelfiProviderService();
 
   bool btnActive = false;
-
-  String? sessionToken;
-  bool? isEnrolled;
 
   Future<void> validateInit(String token) async {
     //get session token
@@ -22,28 +22,23 @@ class WelcomeCubit extends Cubit<WelcomeState> {
 
     if (response.statusCode == 200) {
       final sessionTemp = jsonDecode(response.body);
-      sessionToken = sessionTemp['token'];
+      mainCubit.sessionToken = sessionTemp['token'];
       emit(WelcomeValidate());
     } else {
-      emit(WelcomeValidate(
-        validate: false,
-        code: response.statusCode,
-      ));
+      mainCubit.goError(response.statusCode);
     }
   }
 
   getIsEnrolled() async {
-    final response = await service.getIsEnrolled(sessionToken!);
+    final response = await service.getIsEnrolled(mainCubit.sessionToken!);
     print('is enrolled');
     final isEnrolledTemp = jsonDecode(response.body);
-    isEnrolled = isEnrolledTemp['isEnrolled'];
+    mainCubit.isEnrolled = isEnrolledTemp['isEnrolled'];
 
     print('==========================> enrolled');
-    emit(WelcomeGoTo(
-      isEnrolled: isEnrolled!,
-      sessionToken: sessionToken!,
-    ));
-    print(state);
+    print('==========================> ir a take picture');
+
+    mainCubit.emit(MainTakePicture());
   }
 
   void btnPulse(bool active) {
@@ -54,8 +49,4 @@ class WelcomeCubit extends Cubit<WelcomeState> {
   void accepted() {
     emit(WelcomeAccepted());
   }
-
-  // void gotoPicture() {
-  //   emit(WelcomeGoTo());
-  // }
 }

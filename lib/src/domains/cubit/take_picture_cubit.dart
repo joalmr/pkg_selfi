@@ -7,12 +7,16 @@ import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'package:pkg_selfi/src/domains/models/SelphiFaceWidget.dart';
 import 'package:pkg_selfi/src/domains/providers/selfi-provider-service.dart';
+import 'package:pkg_selfi/src/domains/views/success/success.dart';
 import 'package:selphi_face_plugin/SelphiFaceFinishStatus.dart';
+
+import 'main_cubit.dart';
 
 part 'take_picture_state.dart';
 
 class TakePictureCubit extends Cubit<TakePictureState> {
-  TakePictureCubit() : super(TakePictureInitial());
+  final MainCubit mainCubit;
+  TakePictureCubit(this.mainCubit) : super(TakePictureInitial());
 
   SelfiProviderService service = SelfiProviderService();
 
@@ -27,21 +31,23 @@ class TakePictureCubit extends Cubit<TakePictureState> {
   String message = 'Preview selfie';
   Color textColorMessage = Color(0xFF0099af);
 
-  validaPersona(bool flagEnrollment, String sessionToken) async {
-    print('flagEnrollment ==> $flagEnrollment');
-    print('sessionToken ==> $sessionToken');
-    print('bestImage ==> $bestImage');
-
+  validaPersona() async {
     if (bestImage!.isNotEmpty) {
       final response = await service.getInfoPerson(
-        flagEnrollment,
+        mainCubit.isEnrolled ?? false,
         bestImage!.toString(),
-        sessionToken,
+        mainCubit.sessionToken ?? '',
       );
+      if (response.statusCode == 200) {
+        print('=======> ir a success');
+        mainCubit.emit(MainSuccess());
 
-      print('===================> valida Persona');
-      print(response.statusCode);
-      print(response.body);
+        print('===================> valida Persona');
+      } else {
+        print(response.statusCode);
+        print(response.body);
+        mainCubit.goError(response.statusCode);
+      }
     }
   }
 
@@ -63,10 +69,6 @@ class TakePictureCubit extends Cubit<TakePictureState> {
             bestImage = base64Decode(selphiFaceResult.bestImage!);
             textColorMessage = Color(0xFF0099af);
 
-            print('=====> respuesta selphi');
-            print(bestImage!.isEmpty);
-            print(bestImage);
-
             emit(TakePictureWithImage(bestImage!));
           }
           break;
@@ -75,7 +77,7 @@ class TakePictureCubit extends Cubit<TakePictureState> {
             message = selphiFaceResult.errorMessage!;
             bestImage = null;
             textColorMessage = Colors.red[800]!;
-            emit(TakePictureFail(message));
+            mainCubit.emit(MainFail(message));
           }
           break;
         case SelphiFaceFinishStatus.STATUS_CANCEL_BY_USER: // CancelByUser
@@ -83,7 +85,7 @@ class TakePictureCubit extends Cubit<TakePictureState> {
             message = 'The user cancelled the process';
             bestImage = null;
             textColorMessage = Colors.amber[800]!;
-            emit(TakePictureFail(message));
+            mainCubit.emit(MainFail(message));
           }
           break;
         case SelphiFaceFinishStatus.STATUS_TIMEOUT: // Timeout
@@ -91,7 +93,7 @@ class TakePictureCubit extends Cubit<TakePictureState> {
             message = 'Process finished by timeout';
             bestImage = null;
             textColorMessage = Colors.amber[800]!;
-            emit(TakePictureFail(message));
+            mainCubit.emit(MainFail(message));
           }
           break;
       }

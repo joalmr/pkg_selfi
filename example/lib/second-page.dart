@@ -9,7 +9,14 @@ class SecondPage extends StatelessWidget {
     return MainPkgView(
       token: accessToken!,
       trackId: 'trackId',
-      goOutTo: () {},
+      onChanged: (value) {
+        print(value);
+        if (value == false) {
+          Navigator.of(context).pop();
+        } else if (value == true) {
+          print('ok');
+        }
+      },
     );
   }
 }
