@@ -156,16 +156,13 @@ class StepView extends StatelessWidget {
                                   ),
                                   SizedBox(height: 20),
                                   ButtonSecondary(
-                                    text: 'Continuar',
-                                    onPressed: () => context
-                                        .read<WelcomeCubit>()
-                                        .getIsEnrolled(),
-                                    // Navigator.of(context).push(
-                                    //   MaterialPageRoute(
-                                    //       builder: (context) =>
-                                    //           TakePictureView()),
-                                    // ),
-                                  ),
+                                      text: 'Continuar',
+                                      onPressed: () {
+                                        Navigator.of(context_).pop();
+                                        context
+                                            .read<WelcomeCubit>()
+                                            .getIsEnrolled();
+                                      }),
                                 ],
                               ),
                             ),

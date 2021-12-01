@@ -41,6 +41,8 @@ class WelcomeView extends StatelessWidget {
                     );
                   }
                 }
+              case WelcomeGoTo:
+                return Center(child: CircularProgressIndicator());
               case WelcomeAccepted:
                 return StepView();
               case WelcomeInitial:

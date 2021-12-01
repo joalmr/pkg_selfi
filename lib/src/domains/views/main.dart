@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:pkg_selfi/src/domains/cubit/success_cubit.dart';
 import 'package:pkg_selfi/src/domains/cubit/take_picture_cubit.dart';
 import 'package:pkg_selfi/src/domains/cubit/welcome_cubit.dart';
@@ -9,7 +10,12 @@ import 'welcome/welcome.dart';
 class MainPkgView extends StatefulWidget {
   final String token;
   final String trackId;
-  const MainPkgView({required this.token, required this.trackId});
+  final void Function() goOutTo;
+  const MainPkgView({
+    required this.token,
+    required this.trackId,
+    required this.goOutTo,
+  });
 
   @override
   State<MainPkgView> createState() => _MainPkgViewState();
@@ -21,14 +27,14 @@ class _MainPkgViewState extends State<MainPkgView> {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-            lazy: true,
             create: (context) => WelcomeCubit()..validateInit(widget.token)),
-        // BlocProvider(
-        //   create: (context) => TakePictureCubit(),
-        // ),
+        BlocProvider(create: (context) => TakePictureCubit()),
         BlocProvider(create: (context) => SuccessCubit()),
       ],
-      child: WelcomeView(token: widget.token),
+      child: MaterialApp(
+        title: '',
+        home: WelcomeView(token: widget.token),
+      ),
     );
   }
 }

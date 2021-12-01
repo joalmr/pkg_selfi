@@ -9,6 +9,7 @@ class SecondPage extends StatelessWidget {
     return MainPkgView(
       token: accessToken!,
       trackId: 'trackId',
+      goOutTo: () {},
     );
   }
 }

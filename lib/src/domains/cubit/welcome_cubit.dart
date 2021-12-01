@@ -43,6 +43,7 @@ class WelcomeCubit extends Cubit<WelcomeState> {
       isEnrolled: isEnrolled!,
       sessionToken: sessionToken!,
     ));
+    print(state);
   }
 
   void btnPulse(bool active) {
