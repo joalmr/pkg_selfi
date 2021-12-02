@@ -7,11 +7,12 @@ import 'error-title.dart';
 class ErrorMsg extends StatelessWidget {
   final String errorCode;
   final String errorUserMessage;
-  final void Function()? onPressed;
+  final void Function() onErrorPress;
+
   const ErrorMsg({
     required this.errorCode,
     required this.errorUserMessage,
-    required this.onPressed,
+    required this.onErrorPress,
   });
 
   @override
@@ -50,7 +51,7 @@ class ErrorMsg extends StatelessWidget {
               SizedBox(height: 30),
               ButtonPrimary(
                 text: 'Vuelva a intentarlo',
-                onPressed: onPressed,
+                onPressed: onErrorPress,
               ),
             ],
           ),

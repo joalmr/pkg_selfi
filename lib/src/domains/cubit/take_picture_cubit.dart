@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
-import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:bloc/bloc.dart';
@@ -46,13 +44,13 @@ class TakePictureCubit extends Cubit<TakePictureState> {
 
         print('===================> valida Persona');
       } else {
-        print(response.statusCode);
-        print(response.body);
         //
         final errorTemp = jsonDecode(response.body);
-        final String code = errorTemp['code'] ?? '';
-        final String userMessage = errorTemp['userMessage'] ?? '';
-        mainCubit.goError(response.statusCode, code, userMessage);
+        mainCubit.goError(
+          response.statusCode,
+          errorTemp['error']['code'],
+          errorTemp['error']['userMessage'],
+        );
       }
     }
   }

@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'package:pkg_selfi/src/domains/cubit/main_cubit.dart';
 import 'package:pkg_selfi/src/domains/providers/selfi-provider-service.dart';
-import 'package:pkg_selfi/src/domains/views/take-picture/take-picture.dart';
 
 part 'welcome_state.dart';
 
@@ -26,11 +26,12 @@ class WelcomeCubit extends Cubit<WelcomeState> {
       mainCubit.sessionToken = sessionTemp['token'];
       emit(WelcomeValidate());
     } else {
-      // {"error":{"systemMessage":"El token presente se encuentra expirado","userMessage":"El token presente se encuentra expirado","traceId":"123454364636","code":"01.02.02"}}
       final errorTemp = jsonDecode(response.body);
-      final String code = errorTemp['code'] ?? '';
-      final String userMessage = errorTemp['userMessage'] ?? '';
-      mainCubit.goError(response.statusCode, code, userMessage);
+      mainCubit.goError(
+        response.statusCode,
+        errorTemp['error']['code'],
+        errorTemp['error']['userMessage'],
+      );
     }
   }
 
@@ -44,6 +45,7 @@ class WelcomeCubit extends Cubit<WelcomeState> {
     mainCubit.isEnrolled = isEnrolledTemp['isEnrolled'];
 
     print('==========================> enrolled');
+    print(mainCubit.isEnrolled);
     print('==========================> ir a take picture');
 
     mainCubit.emit(MainTakePicture());

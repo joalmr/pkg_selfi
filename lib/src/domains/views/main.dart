@@ -11,16 +11,14 @@ import 'welcome/welcome.dart';
 class MainPkgView extends StatefulWidget {
   final String token;
   final String trackingId;
-  final void Function()? onSuccessPress;
-  final void Function()? onErrorPress;
+  final void Function() onSuccessPress;
+  final void Function() onErrorPress;
   // final ValueChanged<bool?>? onChanged;
-  // final void Function(bool) onChanged;
   const MainPkgView({
     required this.token,
     required this.trackingId,
     required this.onSuccessPress,
     required this.onErrorPress,
-    // required this.onChanged,
   });
 
   @override
@@ -50,7 +48,7 @@ class _MainPkgViewState extends State<MainPkgView> {
                   builder: (context) => ErrorMsg(
                     errorCode: state.code,
                     errorUserMessage: state.userMessage,
-                    onPressed: widget.onErrorPress,
+                    onErrorPress: widget.onErrorPress,
                   ),
                 ),
               );
@@ -63,8 +61,7 @@ class _MainPkgViewState extends State<MainPkgView> {
             if (state is MainSuccess) {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                    builder: (context) =>
-                        SuccesView(onSuccessPress: widget.onSuccessPress)),
+                    builder: (context) => SuccesView(widget.onSuccessPress)),
               );
             }
             if (state is MainFail) {

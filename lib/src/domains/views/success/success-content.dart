@@ -3,8 +3,8 @@ import 'package:pkg_selfi/src/theme/colors.dart';
 import 'package:pkg_selfi/src/widgets/button-primary/button-primary.dart';
 
 class SuccesContent extends StatelessWidget {
-  final void Function()? onSuccessPress;
-  const SuccesContent({required this.onSuccessPress});
+  final void Function() onSuccessPress;
+  const SuccesContent(this.onSuccessPress);
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +42,7 @@ class SuccesContent extends StatelessWidget {
               ButtonPrimary(
                 text: 'Continuar',
                 minimumSize: Size(MediaQuery.of(context).size.width * 0.45, 35),
-                onPressed: onSuccessPress, //() => print('salir'), //for git
+                onPressed: onSuccessPress,
               ),
             ],
           ),

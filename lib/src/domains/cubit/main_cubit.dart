@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 
 import 'package:meta/meta.dart';
+import 'package:pkg_selfi/src/widgets/error/error-title.dart';
 
 import 'navigation/navigation_cubit.dart';
 
@@ -18,43 +19,23 @@ class MainCubit extends Cubit<MainState> {
 
   void navigationEvent() {}
 
-  void goError(int statusCode, String code, String userMessage) {
+  void goError(int statusCode, String? code, String? userMessage) {
     dataReturn = false;
-    emit(MainError(statusCode, code, userMessage));
+    emit(
+      MainError(
+        statusCode,
+        code ?? 'Ocurrió un error inesperado',
+        userMessage ??
+            'No se puede continuar con la operación, verifique los datos ingresados',
+      ),
+    );
 
-    String title;
-    String message;
-    switch (statusCode) {
-      case 400:
-      case 401:
-      case 403:
-        {
-          title = 'Lo sentimos, no pudimos validar tu documento de identidad';
-          message =
-              'No se pudo validar el número del documento ingresado, al parecer no corresponde al usuario o este es menor de edad. Verifique sus datos e inténtelo de nuevo.';
-        }
-        break;
-      case 404:
-        {
-          title = 'Lo sentimos, no pudimos validar tu documento de identidad';
-          message =
-              'No se pudo validar el número del documento ingresado, al parecer no corresponde al usuario o este es menor de edad. Verifique sus datos e inténtelo de nuevo.';
-        }
-        break;
-      case 429:
-      default:
-        {
-          title = 'Ocurrió un error inesperado';
-          message =
-              'No se puede continuar con la operación, verifique los datos ingresados';
-        }
-        break;
-    }
     var errorPkg = {
       'error': 'Error package selphi',
-      'message': title,
-      'description': message,
+      'message': errorTitle[code],
+      'description': userMessage,
       'code': code,
+      'statusCode': statusCode,
     };
     throw Exception(errorPkg);
   }
