@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:http/src/response.dart';
 import 'package:pkg_selfi/src/domains/providers/selfi-provider.dart';
 import 'package:pkg_selfi/src/libs/provider/api-provider.dart';
@@ -40,6 +42,11 @@ class SelfiProviderService extends SelfiProvider {
     String templateRaw,
     String sessionToken,
   ) {
+    print('=====> templateRaw');
+
+    print(templateRaw);
+    log(templateRaw);
+
     return api.post(
       "apimgmt-pacificodesa.azure-api.net",
       "ux-valida-informacion-persona-pga/identificacion-biometrica/v1/person",
