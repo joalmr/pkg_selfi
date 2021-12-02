@@ -5,8 +5,8 @@ import 'error-case.dart';
 
 class ErrorMsg extends StatelessWidget {
   final int errorCode;
-
-  const ErrorMsg({required this.errorCode});
+  final void Function()? onPressed;
+  const ErrorMsg({required this.errorCode, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class ErrorMsg extends StatelessWidget {
               SizedBox(height: 30),
               ButtonPrimary(
                 text: 'Vuelva a intentarlo',
-                onPressed: () {},
+                onPressed: onPressed,
               ),
             ],
           ),

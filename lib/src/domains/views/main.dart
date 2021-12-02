@@ -11,7 +11,8 @@ import 'welcome/welcome.dart';
 class MainPkgView extends StatefulWidget {
   final String token;
   final String trackId;
-  final ValueChanged<bool?> onChanged;
+  final ValueChanged<bool?>? onChanged;
+  // final void Function(bool) onChanged;
   const MainPkgView({
     required this.token,
     required this.trackId,
@@ -43,7 +44,11 @@ class _MainPkgViewState extends State<MainPkgView> {
               print('=====> error ${state.code}');
               Navigator.of(context).push(
                 MaterialPageRoute(
-                    builder: (context) => ErrorMsg(errorCode: state.code)),
+                  builder: (context) => ErrorMsg(
+                    errorCode: state.code,
+                    onPressed: () {},
+                  ),
+                ),
               );
             }
             if (state is MainTakePicture) {
