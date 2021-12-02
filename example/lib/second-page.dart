@@ -10,8 +10,8 @@ class SecondPage extends StatelessWidget {
     return MainPkgView(
       token: accessToken!,
       trackingId: '1234',
-      onSuccessPress: () => print('success press'),
-      onErrorPress: () => print('error press'),
+      onSuccessPress: () => print('success press pkg'),
+      onErrorPress: () => print('error press pkg'),
     );
   }
 }
