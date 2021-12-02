@@ -11,19 +11,20 @@ class MainCubit extends Cubit<MainState> {
   MainCubit(this.navigationCubit) : super(MainInitial());
 
   String? sessionToken;
+  String? trackingId;
   bool? isEnrolled;
 
   bool? dataReturn;
 
   void navigationEvent() {}
 
-  void goError(int code) {
+  void goError(int statusCode, String code, String userMessage) {
     dataReturn = false;
-    emit(MainError(code));
+    emit(MainError(statusCode, code, userMessage));
 
     String title;
     String message;
-    switch (code) {
+    switch (statusCode) {
       case 400:
       case 401:
       case 403:

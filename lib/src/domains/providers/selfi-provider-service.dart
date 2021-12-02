@@ -8,7 +8,7 @@ class SelfiProviderService extends SelfiProvider {
   final ApiProvider api = ApiProvider();
 
   @override
-  Future<Response> getSessionToken(String token) {
+  Future<Response> getSessionToken(String token, String trackingId) {
     return api.post(
       "apimgmt-pacificodesa.azure-api.net",
       "ux-opera-token-pga/identificacion-biometrica/v1/token/session",
@@ -17,13 +17,15 @@ class SelfiProviderService extends SelfiProvider {
             '926ec90111ea4d3bb44699fa01f01c1b;product=ibiometria-producto',
         'correlationId': '123454364636',
         'Content-Type': 'application/json; charset=UTF-8',
+        'Device-Id': 'mobile',
+        'Tracking-Id': trackingId,
       },
       body: {"access-token": token},
     );
   }
 
   @override
-  Future<Response> getIsEnrolled(String sessionToken) {
+  Future<Response> getIsEnrolled(String sessionToken, String trackingId) {
     return api.get("apimgmt-pacificodesa.azure-api.net",
         "ux-biom-enrolamiento-persona-pga/identificacion-biometrica/v1/person/enrollment",
         headers: {
@@ -33,6 +35,8 @@ class SelfiProviderService extends SelfiProvider {
           'Cookie':
               'fpc=AoxLMklE38FNsgVeuEVr0PXzV-iIAQAAAFt8ydgOAAAA; stsservicecookie=estsfd; x-ms-gateway-slice=estsfd; fpc=AqVQl-yQSW5FhXNjmWacz8_zV-iIAQAAAFv0HdkOAAAA',
           'Content-Type': 'application/json; charset=UTF-8',
+          'Device-Id': 'mobile',
+          'Tracking-Id': trackingId,
         });
   }
 
@@ -41,6 +45,7 @@ class SelfiProviderService extends SelfiProvider {
     bool flagEnrollment,
     String templateRaw,
     String sessionToken,
+    String trackingId,
   ) {
     print('=====> templateRaw');
 
@@ -56,6 +61,8 @@ class SelfiProviderService extends SelfiProvider {
         'Cookie':
             'fpc=AoxLMklE38FNsgVeuEVr0PXzV-iIAQAAAFt8ydgOAAAA; stsservicecookie=estsfd; x-ms-gateway-slice=estsfd',
         'Content-Type': 'application/json; charset=UTF-8',
+        'Device-Id': 'mobile',
+        'Tracking-Id': trackingId,
       },
       body: {
         "flagEnrollment": flagEnrollment,

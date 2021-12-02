@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:pkg_selfi/src/theme/colors.dart';
 import 'package:pkg_selfi/src/widgets/button-primary/button-primary.dart';
 
-import 'error-case.dart';
+import 'error-title.dart';
 
 class ErrorMsg extends StatelessWidget {
-  final int errorCode;
+  final String errorCode;
+  final String errorUserMessage;
   final void Function()? onPressed;
-  const ErrorMsg({required this.errorCode, required this.onPressed});
+  const ErrorMsg({
+    required this.errorCode,
+    required this.errorUserMessage,
+    required this.onPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +27,26 @@ class ErrorMsg extends StatelessWidget {
                 'images/error.png',
                 package: 'pkg_selfi',
               ),
-              ErrorCase(errorCode: errorCode),
+              // ErrorCase(errorCode: errorCode),
+              Text(
+                errorTitle[errorCode]!,
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: bluePacifico,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 5,
+                  vertical: 5,
+                ),
+                child: Text(
+                  errorUserMessage,
+                  textAlign: TextAlign.center,
+                ),
+              ),
               SizedBox(height: 30),
               ButtonPrimary(
                 text: 'Vuelva a intentarlo',

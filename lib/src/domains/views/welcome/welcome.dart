@@ -8,13 +8,18 @@ import 'widgets/welcome-content.dart';
 class WelcomeView extends StatelessWidget {
   // final injector = ModuleContainer().initialize(Injector());
   final String token;
-  WelcomeView({required this.token});
+  final String trackingId;
+  WelcomeView({required this.token, required this.trackingId});
 
   @override
   Widget build(BuildContext context) {
     var _mainCubit = BlocProvider.of<MainCubit>(context);
     return BlocProvider(
-      create: (context) => WelcomeCubit(_mainCubit)..validateInit(token),
+      create: (context) => WelcomeCubit(_mainCubit)
+        ..validateInit(
+          token,
+          trackingId,
+        ),
       child: WelcomeContent(),
     );
   }

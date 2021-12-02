@@ -6,14 +6,15 @@ import 'package:pkg_selfi/src/domains/cubit/success_cubit.dart';
 import 'success-content.dart';
 
 class SuccesView extends StatelessWidget {
-  const SuccesView({Key? key}) : super(key: key);
+  final void Function()? onSuccessPress;
+  const SuccesView({required this.onSuccessPress});
 
   @override
   Widget build(BuildContext context) {
     var _mainCubit = BlocProvider.of<MainCubit>(context);
     return BlocProvider(
       create: (context) => SuccessCubit(_mainCubit),
-      child: SuccesContent(),
+      child: SuccesContent(onSuccessPress: onSuccessPress),
     );
   }
 }

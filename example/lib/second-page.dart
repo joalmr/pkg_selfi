@@ -9,15 +9,9 @@ class SecondPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MainPkgView(
       token: accessToken!,
-      trackId: 'trackId',
-      onChanged: (value) {
-        print(value);
-        if (value == false) {
-          Navigator.of(context).pop();
-        } else if (value == true) {
-          print('ok');
-        }
-      },
+      trackingId: '1234',
+      onSuccessPress: () => print('success press'),
+      onErrorPress: () => print('error press'),
     );
   }
 }

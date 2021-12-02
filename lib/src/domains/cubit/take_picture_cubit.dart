@@ -38,6 +38,7 @@ class TakePictureCubit extends Cubit<TakePictureState> {
         mainCubit.isEnrolled ?? false,
         bestImage!.toString(),
         mainCubit.sessionToken ?? '',
+        mainCubit.trackingId!,
       );
       if (response.statusCode == 200) {
         print('=======> ir a success');
@@ -47,7 +48,11 @@ class TakePictureCubit extends Cubit<TakePictureState> {
       } else {
         print(response.statusCode);
         print(response.body);
-        mainCubit.goError(response.statusCode);
+        //
+        final errorTemp = jsonDecode(response.body);
+        final String code = errorTemp['code'] ?? '';
+        final String userMessage = errorTemp['userMessage'] ?? '';
+        mainCubit.goError(response.statusCode, code, userMessage);
       }
     }
   }

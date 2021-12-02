@@ -10,9 +10,11 @@ class MainTakePicture extends MainState {}
 class MainSuccess extends MainState {}
 
 class MainError extends MainState {
-  final int code;
+  final int statusCode;
+  final String code;
+  final String userMessage;
 
-  MainError(this.code);
+  MainError(this.statusCode, this.code, this.userMessage);
 }
 
 class MainFail extends MainState {

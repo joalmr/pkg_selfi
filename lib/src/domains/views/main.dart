@@ -10,13 +10,17 @@ import 'welcome/welcome.dart';
 
 class MainPkgView extends StatefulWidget {
   final String token;
-  final String trackId;
-  final ValueChanged<bool?>? onChanged;
+  final String trackingId;
+  final void Function()? onSuccessPress;
+  final void Function()? onErrorPress;
+  // final ValueChanged<bool?>? onChanged;
   // final void Function(bool) onChanged;
   const MainPkgView({
     required this.token,
-    required this.trackId,
-    required this.onChanged,
+    required this.trackingId,
+    required this.onSuccessPress,
+    required this.onErrorPress,
+    // required this.onChanged,
   });
 
   @override
@@ -41,12 +45,12 @@ class _MainPkgViewState extends State<MainPkgView> {
         home: BlocConsumer<MainCubit, MainState>(
           listener: (context, state) {
             if (state is MainError) {
-              print('=====> error ${state.code}');
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => ErrorMsg(
                     errorCode: state.code,
-                    onPressed: () {},
+                    errorUserMessage: state.userMessage,
+                    onPressed: widget.onErrorPress,
                   ),
                 ),
               );
@@ -58,7 +62,9 @@ class _MainPkgViewState extends State<MainPkgView> {
             }
             if (state is MainSuccess) {
               Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => SuccesView()),
+                MaterialPageRoute(
+                    builder: (context) =>
+                        SuccesView(onSuccessPress: widget.onSuccessPress)),
               );
             }
             if (state is MainFail) {
@@ -69,6 +75,7 @@ class _MainPkgViewState extends State<MainPkgView> {
           builder: (context, state) {
             return WelcomeView(
               token: widget.token,
+              trackingId: widget.trackingId,
             );
           },
         ),
