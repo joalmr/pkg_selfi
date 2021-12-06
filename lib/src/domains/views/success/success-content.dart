@@ -15,15 +15,15 @@ class SuccesContent extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                'bodyText',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: bluePacifico,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 24,
-                ),
-              ),
+              // Text(
+              //   'bodyText',
+              //   textAlign: TextAlign.center,
+              //   style: TextStyle(
+              //     color: bluePacifico,
+              //     fontWeight: FontWeight.bold,
+              //     fontSize: 24,
+              //   ),
+              // ),
               SizedBox(height: 10),
               Text(
                 '¡Tu identidad fue verificada con éxito!',

@@ -12,13 +12,13 @@ class MainPkgView extends StatefulWidget {
   final String token;
   final String trackingId;
   final void Function() onSuccessPress;
-  final void Function() onErrorPress;
+  final void Function() errorAndExit;
   // final ValueChanged<bool?>? onChanged;
   const MainPkgView({
     required this.token,
     required this.trackingId,
     required this.onSuccessPress,
-    required this.onErrorPress,
+    required this.errorAndExit,
   });
 
   @override
@@ -43,26 +43,17 @@ class _MainPkgViewState extends State<MainPkgView> {
         home: BlocConsumer<MainCubit, MainState>(
           listener: (context, state) {
             if (state is MainError) {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => ErrorMsg(
-                    errorCode: state.code,
-                    errorUserMessage: state.userMessage,
-                    onErrorPress: widget.onErrorPress,
-                  ),
-                ),
-              );
+              navigatorCubit.navigationEvent(ErrorMsg(
+                errorCode: state.code,
+                errorUserMessage: state.userMessage,
+                onErrorPress: widget.errorAndExit,
+              ));
             }
             if (state is MainTakePicture) {
-              Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => TakePictureView()),
-              );
+              navigatorCubit.navigationEvent(TakePictureView());
             }
             if (state is MainSuccess) {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                    builder: (context) => SuccesView(widget.onSuccessPress)),
-              );
+              navigatorCubit.navigationEvent(SuccesView(widget.onSuccessPress));
             }
             if (state is MainFail) {
               final snackBar = SnackBar(content: Text(state.msg));

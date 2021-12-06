@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pkg_selfi/src/domains/cubit/navigation/navigation_cubit.dart';
 import 'package:pkg_selfi/src/theme/colors.dart';
 import 'package:pkg_selfi/src/widgets/button-primary/button-primary.dart';
 
@@ -17,6 +19,8 @@ class ErrorMsg extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var navigatorCubit = BlocProvider.of<NavigationCubit>(context);
+
     return Scaffold(
       body: Container(
         margin: EdgeInsets.all(25),
@@ -49,10 +53,15 @@ class ErrorMsg extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 30),
-              ButtonPrimary(
-                text: 'Vuelva a intentarlo',
-                onPressed: onErrorPress,
-              ),
+              errorCode == '01.03.01'
+                  ? ButtonPrimary(
+                      text: 'Salir',
+                      onPressed: onErrorPress,
+                    )
+                  : ButtonPrimary(
+                      text: 'Vuelva a intentarlo',
+                      onPressed: () => navigatorCubit.navigationPop(),
+                    ),
             ],
           ),
         ),

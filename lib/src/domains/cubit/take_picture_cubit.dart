@@ -46,6 +46,8 @@ class TakePictureCubit extends Cubit<TakePictureState> {
       } else {
         //
         final errorTemp = jsonDecode(response.body);
+        print('=======> error en templateraw');
+        print(response.body);
         mainCubit.goError(
           response.statusCode,
           errorTemp['error']['code'],

@@ -8,10 +8,14 @@ class NavigationCubit extends Cubit<NavigationState> {
   final GlobalKey<NavigatorState> navigatorKey;
   NavigationCubit(this.navigatorKey) : super(NavigationInitial());
 
-  navigationEvent(route) {
+  void navigationEvent(Widget route) {
     this
         .navigatorKey
         .currentState!
         .push(MaterialPageRoute(builder: (context) => route));
+  }
+
+  void navigationPop() {
+    this.navigatorKey.currentState!.pop();
   }
 }
