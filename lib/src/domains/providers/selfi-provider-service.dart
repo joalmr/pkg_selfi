@@ -19,6 +19,7 @@ class SelfiProviderService extends SelfiProvider {
         'Content-Type': 'application/json; charset=UTF-8',
         'Device-Id': 'mobile',
         'Tracking-Id': trackingId,
+        'Application-Id': '1',
       },
       body: {"access-token": token},
     );
@@ -46,27 +47,27 @@ class SelfiProviderService extends SelfiProvider {
     String templateRaw,
     String sessionToken,
     String trackingId,
+    String selphiBestImage,
   ) {
-    print('=====> templateRaw');
-
-    print(templateRaw);
-    log(templateRaw);
-
+    // apimgmt-pacificodesa.azure-api.net/ux-valida-informacion-persona-pga/identificacion-biometrica/v1/person
     return api.post(
       "apimgmt-pacificodesa.azure-api.net",
       "ux-valida-informacion-persona-pga/identificacion-biometrica/v1/person",
       headers: {
+        // 'Application-User': '01-47006612',
         'Session-token': sessionToken,
         'correlationId': '132323213',
-        'Cookie':
-            'fpc=AoxLMklE38FNsgVeuEVr0PXzV-iIAQAAAFt8ydgOAAAA; stsservicecookie=estsfd; x-ms-gateway-slice=estsfd',
-        'Content-Type': 'application/json; charset=UTF-8',
         'Device-Id': 'mobile',
         'Tracking-Id': trackingId,
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Ocp-Apim-Subscription-Key': '926ec90111ea4d3bb44699fa01f01c1b',
+        // 'Cookie':
+        // 'fpc=AoxLMklE38FNsgVeuEVr0PXzV-iIAQAAAFt8ydgOAAAA; stsservicecookie=estsfd; x-ms-gateway-slice=estsfd',
       },
       body: {
         "flagEnrollment": flagEnrollment,
         "templateRaw": templateRaw,
+        "selphiBestImage": selphiBestImage,
       },
     );
   }

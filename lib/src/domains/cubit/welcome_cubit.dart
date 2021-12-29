@@ -21,6 +21,10 @@ class WelcomeCubit extends Cubit<WelcomeState> {
     mainCubit.trackingId = trackingId;
     final response = await service.getSessionToken(token, trackingId);
 
+    print('=====> validateInit');
+    print(response.body);
+    print(response.statusCode);
+
     if (response.statusCode == 200) {
       final sessionTemp = jsonDecode(response.body);
       mainCubit.sessionToken = sessionTemp['token'];
@@ -40,13 +44,9 @@ class WelcomeCubit extends Cubit<WelcomeState> {
       mainCubit.sessionToken!,
       mainCubit.trackingId!,
     );
-    print('is enrolled');
+
     final isEnrolledTemp = jsonDecode(response.body);
     mainCubit.isEnrolled = isEnrolledTemp['isEnrolled'];
-
-    print('==========================> enrolled');
-    print(mainCubit.isEnrolled);
-    print('==========================> ir a take picture');
 
     mainCubit.emit(MainTakePicture());
   }

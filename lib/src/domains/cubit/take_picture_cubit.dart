@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:meta/meta.dart';
 import 'package:pkg_selfi/src/domains/models/SelphiFaceWidget.dart';
 import 'package:pkg_selfi/src/domains/providers/selfi-provider-service.dart';
@@ -25,7 +27,9 @@ class TakePictureCubit extends Cubit<TakePictureState> {
 
   SelphiFaceWidget _selphiFaceWidget = new SelphiFaceWidget();
   String _resourcesPath = "fphi-selphi-widget-resources-selphi-live-1.2";
-  Uint8List? bestImage;
+  String? bestImage;
+  Uint8List? bestImageBase64;
+  String? templateRaw;
 
   String message = 'Preview selfie';
   Color textColorMessage = Color(0xFF0099af);
@@ -34,15 +38,18 @@ class TakePictureCubit extends Cubit<TakePictureState> {
     if (bestImage!.isNotEmpty) {
       final response = await service.getInfoPerson(
         mainCubit.isEnrolled ?? false,
-        bestImage!.toString(),
+        templateRaw!.toString(),
         mainCubit.sessionToken ?? '',
         mainCubit.trackingId!,
+        bestImage!,
       );
+
+      print(response.statusCode);
+      print(response.body);
+
       if (response.statusCode == 200) {
         print('=======> ir a success');
         mainCubit.emit(MainSuccess());
-
-        print('===================> valida Persona');
       } else {
         //
         final errorTemp = jsonDecode(response.body);
@@ -57,6 +64,9 @@ class TakePictureCubit extends Cubit<TakePictureState> {
     }
   }
 
+// export const ModifyBase64Extension = (base64Image: string): string =>
+// 	base64Image.replace(/^data:image\/(png|jpeg);base64,/, "");
+
   void launchSelphiAuthenticate() async {
     final selphiFaceWidgetResult =
         await _selphiFaceWidget.launchSelphiAuthenticate(_resourcesPath);
@@ -64,6 +74,7 @@ class TakePictureCubit extends Cubit<TakePictureState> {
     return selphiFaceWidgetResult.fold((l) {
       message = l.toString();
       bestImage = null;
+      templateRaw = null;
       textColorMessage = Colors.red[800]!;
     }, (r) {
       final selphiFaceResult = r;
@@ -71,17 +82,26 @@ class TakePictureCubit extends Cubit<TakePictureState> {
       switch (selphiFaceResult.finishStatus) {
         case SelphiFaceFinishStatus.STATUS_OK: // OK
           {
+            // print('============> template raw');
+            // print(selphiFaceResult.templateRaw.toString());
+            // print('============> best image');
+            // print(selphiFaceResult.bestImage.toString());
+
+            templateRaw = selphiFaceResult.templateRaw.toString();
             message = 'Preview Selfie';
-            bestImage = base64Decode(selphiFaceResult.bestImage!);
+            bestImage = selphiFaceResult.bestImage!;
+            bestImageBase64 = base64Decode(selphiFaceResult.bestImage!);
             textColorMessage = Color(0xFF0099af);
 
-            emit(TakePictureWithImage(bestImage!));
+            emit(TakePictureWithImage(
+                base64Decode(selphiFaceResult.bestImage!)));
           }
           break;
         case SelphiFaceFinishStatus.STATUS_ERROR: // Error
           {
             message = selphiFaceResult.errorMessage!;
             bestImage = null;
+            templateRaw = null;
             textColorMessage = Colors.red[800]!;
             mainCubit.emit(MainFail(message));
           }
@@ -90,6 +110,7 @@ class TakePictureCubit extends Cubit<TakePictureState> {
           {
             message = 'The user cancelled the process';
             bestImage = null;
+            templateRaw = null;
             textColorMessage = Colors.amber[800]!;
             mainCubit.emit(MainFail(message));
           }
@@ -98,6 +119,7 @@ class TakePictureCubit extends Cubit<TakePictureState> {
           {
             message = 'Process finished by timeout';
             bestImage = null;
+            templateRaw = null;
             textColorMessage = Colors.amber[800]!;
             mainCubit.emit(MainFail(message));
           }

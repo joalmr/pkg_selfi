@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pkg_selfi/src/domains/cubit/take_picture_cubit.dart';
@@ -29,7 +31,7 @@ class TakePictureContent extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 20),
-                  SelphiImage(context.read<TakePictureCubit>().bestImage),
+                  SelphiImage(context.read<TakePictureCubit>().bestImageBase64),
                   (state is TakePictureInitial)
                       ? SizedBox(height: 0)
                       : Padding(

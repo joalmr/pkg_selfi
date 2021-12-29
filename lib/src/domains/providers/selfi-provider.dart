@@ -12,6 +12,7 @@ abstract class SelfiProvider {
   Future<Response> getInfoPerson(
     bool flagEnrollment,
     String templateRaw,
+    String selphiBestImage,
     String sessionToken,
     String trackingId,
   );
