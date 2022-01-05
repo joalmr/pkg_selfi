@@ -13,8 +13,8 @@ class TakePictureView extends StatelessWidget {
   Widget build(BuildContext context) {
     var _mainCubit = BlocProvider.of<MainCubit>(context);
     return BlocProvider(
-      create: (context) =>
-          TakePictureCubit(_mainCubit)..launchSelphiAuthenticate(),
+      create: (context) => TakePictureCubit(_mainCubit),
+      //..launchSelphiAuthenticate()
       child: TakePictureContent(),
     );
   }

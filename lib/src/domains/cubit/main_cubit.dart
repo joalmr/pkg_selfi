@@ -30,13 +30,12 @@ class MainCubit extends Cubit<MainState> {
       ),
     );
 
-    var errorPkg = {
-      'error': 'Error package selphi',
-      'message': errorTitle[code],
-      'description': userMessage,
-      'code': code,
-      'statusCode': statusCode,
-    };
-    throw Exception(errorPkg);
+    // var errorPkg = {
+    //   'error': 'Error package selphi',
+    //   'message': errorTitle[code],
+    //   'description': userMessage,
+    //   'code': code,
+    //   'statusCode': statusCode,
+    // };
   }
 }

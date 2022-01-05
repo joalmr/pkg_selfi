@@ -108,7 +108,7 @@ class TakePictureCubit extends Cubit<TakePictureState> {
           break;
         case SelphiFaceFinishStatus.STATUS_CANCEL_BY_USER: // CancelByUser
           {
-            message = 'The user cancelled the process';
+            message = 'El usuario canceló el proceso';
             bestImage = null;
             templateRaw = null;
             textColorMessage = Colors.amber[800]!;
@@ -117,7 +117,7 @@ class TakePictureCubit extends Cubit<TakePictureState> {
           break;
         case SelphiFaceFinishStatus.STATUS_TIMEOUT: // Timeout
           {
-            message = 'Process finished by timeout';
+            message = 'Proceso terminado por tiempo de espera';
             bestImage = null;
             templateRaw = null;
             textColorMessage = Colors.amber[800]!;

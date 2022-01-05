@@ -54,15 +54,12 @@ class SelfiProviderService extends SelfiProvider {
       "apimgmt-pacificodesa.azure-api.net",
       "ux-valida-informacion-persona-pga/identificacion-biometrica/v1/person",
       headers: {
-        // 'Application-User': '01-47006612',
         'Session-token': sessionToken,
         'correlationId': '132323213',
         'Device-Id': 'mobile',
         'Tracking-Id': trackingId,
         'Content-Type': 'application/json; charset=UTF-8',
         'Ocp-Apim-Subscription-Key': '926ec90111ea4d3bb44699fa01f01c1b',
-        // 'Cookie':
-        // 'fpc=AoxLMklE38FNsgVeuEVr0PXzV-iIAQAAAFt8ydgOAAAA; stsservicecookie=estsfd; x-ms-gateway-slice=estsfd',
       },
       body: {
         "flagEnrollment": flagEnrollment,

@@ -13,7 +13,7 @@ class MainPkgView extends StatefulWidget {
   final String trackingId;
   final void Function() onSuccessPress;
   final void Function() errorAndExit;
-  // final ValueChanged<bool?>? onChanged;
+
   const MainPkgView({
     required this.token,
     required this.trackingId,
@@ -57,8 +57,8 @@ class _MainPkgViewState extends State<MainPkgView> {
             }
             if (state is MainFail) {
               //error selfie
-              final snackBar = SnackBar(content: Text(state.msg));
-              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              // final snackBar = SnackBar(content: Text(state.msg));
+              // ScaffoldMessenger.of(context).showSnackBar(snackBar);
             }
           },
           builder: (context, state) {
