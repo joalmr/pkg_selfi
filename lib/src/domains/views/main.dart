@@ -56,6 +56,7 @@ class _MainPkgViewState extends State<MainPkgView> {
               navigatorCubit.navigationEvent(SuccesView(widget.onSuccessPress));
             }
             if (state is MainFail) {
+              //error selfie
               final snackBar = SnackBar(content: Text(state.msg));
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
             }
