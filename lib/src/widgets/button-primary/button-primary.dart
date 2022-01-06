@@ -16,8 +16,9 @@ class ButtonPrimary extends StatelessWidget {
       style: TextButton.styleFrom(
         alignment: Alignment.center,
         primary: Colors.white,
-        backgroundColor: greenPacifico,
-        side: BorderSide(color: greenPacifico),
+        backgroundColor: onPressed == null ? Color(0xFFbababa) : greenPacifico,
+        side: BorderSide(
+            color: onPressed == null ? Color(0xFFbababa) : greenPacifico),
         minimumSize: minimumSize,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16.0),
