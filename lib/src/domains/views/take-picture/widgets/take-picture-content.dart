@@ -37,12 +37,13 @@ class TakePictureContent extends StatelessWidget {
                       : Padding(
                           padding: const EdgeInsets.only(top: 20),
                           child: ButtonPrimary(
-                            onPressed: () => context
-                                .read<TakePictureCubit>()
-                                .validaPersona(),
+                            onPressed: () =>
+                                context.read<TakePictureCubit>().lanzaValida(),
                             text: 'Continuar',
                             minimumSize: Size(
                                 MediaQuery.of(context).size.width * 0.60, 35),
+                            cargando:
+                                (state is TakePictureLoading) ? true : false,
                           ),
                         ),
                   Padding(

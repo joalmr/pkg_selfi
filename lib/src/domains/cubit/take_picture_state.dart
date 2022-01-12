@@ -20,3 +20,7 @@ class TakePictureFail extends TakePictureState {
 class TakePictureFailWrap extends TakePictureState {}
 
 class TakePictureGoTo extends TakePictureState {}
+
+class TakePictureLoading extends TakePictureState {}
+
+class TakePictureLoaded extends TakePictureState {}

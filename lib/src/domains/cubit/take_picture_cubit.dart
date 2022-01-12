@@ -34,6 +34,11 @@ class TakePictureCubit extends Cubit<TakePictureState> {
   String message = 'Preview selfie';
   Color textColorMessage = Color(0xFF0099af);
 
+  lanzaValida() {
+    emit(TakePictureLoading());
+    validaPersona();
+  }
+
   validaPersona() async {
     if (bestImage!.isNotEmpty) {
       final response = await service.getInfoPerson(
@@ -44,16 +49,16 @@ class TakePictureCubit extends Cubit<TakePictureState> {
         bestImage!,
       );
 
-      print(response.statusCode);
-      print(response.body);
-
       if (response.statusCode == 200) {
         print('=======> ir a success');
+        emit(TakePictureLoaded());
+        print(mainCubit.state);
         mainCubit.emit(MainSuccess());
       } else {
-        //
+        emit(TakePictureLoaded());
         final errorTemp = jsonDecode(response.body);
         print('=======> error en templateraw');
+        print(response.statusCode);
         print(response.body);
         mainCubit.goError(
           response.statusCode,

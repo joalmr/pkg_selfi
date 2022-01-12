@@ -60,6 +60,25 @@ class _MainPkgViewState extends State<MainPkgView> {
               // final snackBar = SnackBar(content: Text(state.msg));
               // ScaffoldMessenger.of(context).showSnackBar(snackBar);
             }
+            // if (state is MainLoading) {
+            //   showDialog(
+            //     context: context,
+            //     barrierDismissible: false,
+            //     builder: (BuildContext context) {
+            //       return SimpleDialog(
+            //         children: [
+            //           Center(
+            //             child: Container(
+            //               height: 50,
+            //               width: 50,
+            //               child: CircularProgressIndicator(),
+            //             ),
+            //           ),
+            //         ],
+            //       );
+            //     },
+            //   );
+            // }
           },
           builder: (context, state) {
             return WelcomeView(
