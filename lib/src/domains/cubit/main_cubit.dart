@@ -11,6 +11,7 @@ class MainCubit extends Cubit<MainState> {
   final NavigationCubit navigationCubit;
   MainCubit(this.navigationCubit) : super(MainInitial());
 
+  String? oauth;
   String? sessionToken;
   String? trackingId;
   bool? isEnrolled;

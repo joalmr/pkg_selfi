@@ -47,6 +47,7 @@ class TakePictureCubit extends Cubit<TakePictureState> {
         mainCubit.sessionToken ?? '',
         mainCubit.trackingId!,
         bestImage!,
+        mainCubit.oauth!,
       );
 
       if (response.statusCode == 200) {
