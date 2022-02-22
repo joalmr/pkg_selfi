@@ -2,7 +2,7 @@ import 'package:http/http.dart';
 
 abstract class SelfiProvider {
   Future<Response> getOAuth(
-    String resource,
+    // String resource,
   );
   Future<Response> getSessionToken(
     String token,

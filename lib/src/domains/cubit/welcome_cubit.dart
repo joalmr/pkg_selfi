@@ -19,7 +19,10 @@ class WelcomeCubit extends Cubit<WelcomeState> {
   Future<void> validateInit(String token, String trackingId) async {
     //get session token
     mainCubit.trackingId = trackingId;
-    final responseOauth = await service.getOAuth('a8c13a54-361b-4315-aa95-dba1cdf7e96a');
+    
+    final responseOauth = await service.getOAuth();
+    print('=====> oauth');
+    print(responseOauth.statusCode);
     if(responseOauth.statusCode==200){
       final sessionOauth = jsonDecode(responseOauth.body);
       mainCubit.oauth = sessionOauth['access_token'];

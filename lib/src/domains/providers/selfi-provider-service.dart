@@ -9,22 +9,26 @@ class SelfiProviderService extends SelfiProvider {
 
   //nuevo
   @override
-  Future<Response> getOAuth(String resource) {
+  Future<Response> getOAuth() {
+    // https://apimgmt-pacificodesa.azure-api.net/pga-tokens/soporte-ti/v3/tokens
     return api.post(
       "apimgmt-pacificodesa.azure-api.net",
-      "pga-tokens/soporte-ti/v2/tokens",
+      "pga-tokens/soporte-ti/v3/tokens",
       headers: {
         'Content-Type': 'application/json',
-        'Ocp-Apim-Subscription-Key': '2b9fc885c0f74700b0799391668d0888',
-        'clientcredential': 'NWRjNWM1YjAtNjViNy00ZmRlLWFlZGYtNDA2ZjVmNGI3MjQ2OlN1SDdRfk5ZNUhkaFNxZkZsRkZnbjJVWktySXNkQlY0MHZTNmQK',
-        'Cookie': 'fpc=AlFU38bzw3hJugpi1gU5-mb0yNhRAQAAAFXQoNkOAAAA; stsservicecookie=estsfd; x-ms-gateway-slice=estsfd'
+        'Authorization': 'Basic NWRjNWM1YjAtNjViNy00ZmRlLWFlZGYtNDA2ZjVmNGI3MjQ2OlN1SDdRfk5ZNUhkaFNxZkZsRkZnbjJVWktySXNkQlY0MHZTNmQK',
+        'Cookie': 'fpc=AqVQl-yQSW5FhXNjmWacz8_zV-iIAQAAACXda9gOAAAA; stsservicecookie=estsfd; x-ms-gateway-slice=estsfd; fpc=AlFU38bzw3hJugpi1gU5-mb0kV96AQAAAFotp9kOAAAA; stsservicecookie=estsfd; x-ms-gateway-slice=estsfd',
       },
-      body: {"resource": resource},
+      body: {
+        // "resource": resource
+        'scope': 'api://Ibiometria-Producto/.default'
+        },
     );
   }
 
   @override
   Future<Response> getSessionToken(String token, String trackingId, String oauth) {
+    print(oauth);
     return api.post(
       "apimgmt-pacificodesa.azure-api.net",
       "ux-opera-token-pga/identificacion-biometrica/v1/token/session",
